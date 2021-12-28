@@ -33,6 +33,11 @@ for _, v in pairs(workspace:GetDescendants()) do
         v.CanCollide = false
     end
 end
+for _, v in pairs(plr.Character:GetDescendants()) do
+    if v:IsA("BasePart") then
+        v.Anchored = true
+    end
+end
 for _, v in pairs(plr.Character:GetChildren()) do
     if v:IsA("Accessory") then
         v.Handle.Anchored = true
