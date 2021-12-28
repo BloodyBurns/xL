@@ -1,6 +1,6 @@
 local plr = game:GetService("Players").LocalPlayer
 local Scales = {'BodyProportionScale', 'HeadScale', 'BodyWidthScale', 'BodyDepthScale', 'BodyHeightScale', 'BodyTypeScale'}
-local GetMode = {["Mode_1"] = {XZ = 2000, Y = 1500}, ["Mode_2"] = {XZ = 304, Y = 304}, ["Mode_3"] = {XZ = 50, Y = 5}}
+local GetMode = {["Mode_1"] = {XZ = 2000, Y = 1500}, ["Mode_2"] = {XZ = 304, Y = 304}, ["Mode_3"] = {XZ = 30, Y = 5}}
 if not plr.Character:FindFirstChild("PirateCaptain_HatAccessory") then
     return warn'<Missing Accessory!>'
 end
@@ -61,13 +61,14 @@ Handle.CFrame = workspace.SpawnLocation.CFrame
 Handle.Anchored = false
 
 game:GetService("RunService").Heartbeat:Connect(function()
+    Handle.RotVelocity = Vector3.new(-10e10, -10e10, -10e10)
+    Handle.CFrame = workspace.SpawnLocation.CFrame
+end)
+
+while wait() do
     for _, v in pairs(workspace:GetDescendants()) do
         if v:IsA("BasePart") and v.Parent.Name ~= Handle.Parent.Name then
             v.CanCollide = false
         end
     end
-end)
-game:GetService("RunService").Heartbeat:Connect(function()
-    Handle.RotVelocity = Vector3.new(9e9, 9e9, 9e9)
-    Handle.CFrame = workspace.SpawnLocation.CFrame
-end)
+end
