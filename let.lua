@@ -1,3 +1,4 @@
+getgenv().Mode = 3
 local plr = game:GetService("Players").LocalPlayer
 local Scales = {'BodyProportionScale', 'HeadScale', 'BodyWidthScale', 'BodyDepthScale', 'BodyHeightScale', 'BodyTypeScale'}
 local GetMode = {["Mode_1"] = {XZ = 2000, Y = 1500}, ["Mode_2"] = {XZ = 304, Y = 304}, ["Mode_3"] = {XZ = 30, Y = 5}}
@@ -58,8 +59,9 @@ for _, v in pairs(plr.Character:GetChildren()) do
 end
 plr.Character.Head:Destroy()
 Handle.CFrame = workspace.SpawnLocation.CFrame
+Handle.Anchored = false
 
 game:GetService("RunService").Heartbeat:Connect(function()
-    Handle.RotVelocity = Vector3.new(9e9, -9e9, 9e9)
-    Handle.CFrame = workspace.SpawnLocation.CFrame
+    Handle.RotVelocity = Vector3.new(-10e10, -10e10, -10e10)
+    Handle.CFrame = CFrame.new(Vector3.new(workspace.SpawnLocation.Position.X, workspace.SpawnLocation.Position.Y + math.random(-10, 20), workspace.SpawnLocation.Position.Z + math.random(10, 50)))
 end)
