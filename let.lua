@@ -3,14 +3,15 @@ local Scales = {'BodyProportionScale', 'HeadScale', 'BodyWidthScale', 'BodyDepth
 local GetMode = {["Mode_1"] = {XZ = 2000, Y = 1500}, ["Mode_2"] = {XZ = 304, Y = 100}, ["Mode_3"] = {XZ = 30, Y = 5}}
 local Hats = {}
 
-for _, v in pairs(plr.Character:GetChildren()) do
-    if v:IsA("Accessory") then
-        if v.Handle:FindFirstChild("AvatarPartScaleType") then
-            table.insert(Hats, v)
+for _, v in pairs(plr.Character:GetDescendants()) do
+    if v:IsA("StringValue") then
+        if v.Value == "ProportionsSlender" and v.Parent.Name == "Handle" then
+            table.insert(Hats, v.Parent.Parent)
         end
     end
 end
 
+warn(#Hats)
 if #Hats == 0 then
     return game.StarterGui:SetCore("ChatMakeSystemMessage", {Text = "<Missing Accessory!>", Color = Color3.fromRGB(0, 255, 255), Font = Enum.Font.Cartoon, FontSize = Enum.FontSize.Size48})
 end
