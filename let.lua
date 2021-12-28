@@ -5,7 +5,7 @@ if not plr.Character:FindFirstChild("PirateCaptain_HatAccessory") then
     return warn'<Missing Accessory!>'
 end
 
-local Spawn
+local SpawnLocation
 local Character = plr.Character
 local Handle = plr.Character["PirateCaptain_HatAccessory"].Handle
 if (Handle.Size.X <= GetMode["Mode_"..Mode].XZ or Handle.Size.Y <= GetMode["Mode_"..Mode].Y) or (Handle.Size.X <= GetMode["Mode_"..Mode].XZ and Handle.Size.Y <= GetMode["Mode_"..Mode].Y) then
@@ -41,7 +41,7 @@ for _, v in pairs(plr.Character:GetDescendants()) do
 end
 for _, v in pairs(workspace:GetDescendants()) do
     if v:IsA("SpawnLocation") then
-        Spawn = v
+        SpawnLocation = v
     end
 end
 for _, v in pairs(plr.Character:GetChildren()) do
@@ -63,10 +63,10 @@ for _, v in pairs(plr.Character:GetChildren()) do
     end
 end
 plr.Character.Head:Destroy()
-Handle.CFrame = Spawn.CFrame
+Handle.CFrame = SpawnLocation.CFrame
 Handle.Anchored = false
 
 game:GetService("RunService").Heartbeat:Connect(function()
     Handle.RotVelocity = Vector3.new(-10e10, -10e10, -10e10)
-    Handle.CFrame = CFrame.new(Vector3.new(Spawn.Position.X, Spawn.Position.Y + math.random(-10, 20), Spawn.Position.Z + math.random(10, 50)))
+    Handle.CFrame = CFrame.new(Vector3.new(SpawnLocation.Position.X, SpawnLocation.Position.Y + math.random(-10, 20), SpawnLocation.Position.Z + math.random(10, 50)))
 end)
