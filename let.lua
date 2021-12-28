@@ -5,7 +5,7 @@ local Hats = {}
 
 for _, v in pairs(plr.Character:GetChildren()) do
     if v:IsA("Accessory") then
-        if v:FindFirstChild("AvatarPartScaleType") then
+        if v.Handle:FindFirstChild("AvatarPartScaleType") then
             table.insert(Hats, v)
         end
     end
