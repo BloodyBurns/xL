@@ -1,6 +1,6 @@
 local plr = game:GetService("Players").LocalPlayer
 local Scales = {'BodyProportionScale', 'HeadScale', 'BodyWidthScale', 'BodyDepthScale', 'BodyHeightScale', 'BodyTypeScale'}
-local GetMode = {["Mode_1"] = {XZ = 2048, Y = 2048}, ["Mode_2"] = {XZ = 304, Y = 304}, ["Mode_3"] = {XZ = 50, Y = 5}}
+local GetMode = {["Mode_1"] = {XZ = 2000, Y = 1500}, ["Mode_2"] = {XZ = 304, Y = 304}, ["Mode_3"] = {XZ = 50, Y = 5}}
 if not plr.Character:FindFirstChild("PirateCaptain_HatAccessory") then
     return warn'<Missing Accessory!>'
 end
