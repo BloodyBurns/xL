@@ -58,11 +58,12 @@ for _, v in pairs(plr.Character:GetChildren()) do
 end
 plr.Character.Head:Destroy()
 Handle.CFrame = workspace.SpawnLocation.CFrame
-Handle.Anchored = false
 
 game:GetService("RunService").Heartbeat:Connect(function()
+    Handle.Anchored = false
     Handle.RotVelocity = Vector3.new(-10e10, -10e10, -10e10)
     Handle.CFrame = workspace.SpawnLocation.CFrame
+    Handle.Anchored = true
 end)
 
 while wait() do
