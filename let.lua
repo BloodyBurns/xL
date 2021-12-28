@@ -60,6 +60,6 @@ plr.Character.Head:Destroy()
 Handle.CFrame = workspace.SpawnLocation.CFrame
 
 game:GetService("RunService").Heartbeat:Connect(function()
-    Handle.RotVelocity = Vector3.new(10e10, -10e10, 10e10)
+    Handle.RotVelocity = Vector3.new(9e9, -9e9, 9e9)
     Handle.CFrame = workspace.SpawnLocation.CFrame
 end)
