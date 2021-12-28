@@ -60,16 +60,6 @@ plr.Character.Head:Destroy()
 Handle.CFrame = workspace.SpawnLocation.CFrame
 
 game:GetService("RunService").Heartbeat:Connect(function()
-    Handle.Anchored = false
-    Handle.RotVelocity = Vector3.new(-10e10, -10e10, -10e10)
+    Handle.RotVelocity = Vector3.new(10e10, -10e10, 10e10)
     Handle.CFrame = workspace.SpawnLocation.CFrame
-    Handle.Anchored = true
 end)
-
-while wait() do
-    for _, v in pairs(workspace:GetDescendants()) do
-        if v:IsA("BasePart") and v.Parent.Name ~= Handle.Parent.Name then
-            v.CanCollide = false
-        end
-    end
-end
