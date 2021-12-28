@@ -1,13 +1,21 @@
 local plr = game:GetService("Players").LocalPlayer
 local Scales = {'BodyProportionScale', 'HeadScale', 'BodyWidthScale', 'BodyDepthScale', 'BodyHeightScale', 'BodyTypeScale'}
 local GetMode = {["Mode_1"] = {XZ = 2000, Y = 1500}, ["Mode_2"] = {XZ = 304, Y = 100}, ["Mode_3"] = {XZ = 30, Y = 5}}
-if not plr.Character:FindFirstChild("PirateCaptain_HatAccessory") then
-    return warn'<Missing Accessory!>'
+local Hats = {}
+
+for _, v in pairs(plr.Character:GetChildren()) do
+    if v:IsA("Accessory") then
+        if v:FindFirstChild("AvatarPartScaleType") then
+            table.insert(Hats, v)
+        end
+    end
 end
 
-local SpawnLocation
-local Character = plr.Character
-local Handle = plr.Character["PirateCaptain_HatAccessory"].Handle
+if #Hats == 0 then
+    return game.StarterGui:SetCore("ChatMakeSystemMessage", {Text = "<Missing Accessory!>", Color = Color3.fromRGB(0, 255, 255), Font = Enum.Font.Cartoon, FontSize = Enum.FontSize.Size48})
+end
+
+local Handle = Hats[#Hats].Handle
 if (Handle.Size.X <= GetMode["Mode_"..Mode].XZ or Handle.Size.Y <= GetMode["Mode_"..Mode].Y) or (Handle.Size.X <= GetMode["Mode_"..Mode].XZ and Handle.Size.Y <= GetMode["Mode_"..Mode].Y) then
     for _, v in next, Scales do
         if plr.Character.Humanoid:FindFirstChild(v) then
@@ -22,10 +30,12 @@ if (Handle.Size.X <= GetMode["Mode_"..Mode].XZ or Handle.Size.Y <= GetMode["Mode
         end
     end
     if (Handle.Size.X <= GetMode["Mode_"..Mode].XZ or Handle.Size.Y <= GetMode["Mode_"..Mode].Y) or (Handle.Size.X <= GetMode["Mode_"..Mode].XZ and Handle.Size.Y <= GetMode["Mode_"..Mode].Y) then
-        return warn'<ReScale>'
+        return game.StarterGui:SetCore("ChatMakeSystemMessage", {Text = "<ReScale!>", Color = Color3.fromRGB(0, 255, 255), Font = Enum.Font.Cartoon, FontSize = Enum.FontSize.Size48})
     end
 end
 
+local SpawnLocation
+local Character = plr.Character
 plr.Character = nil
 plr.Character = Character
 
@@ -67,6 +77,8 @@ Handle.CFrame = SpawnLocation.CFrame
 Handle.Anchored = false
 
 game:GetService("RunService").Heartbeat:Connect(function()
-    Handle.RotVelocity = Vector3.new(-10e10, -10e10, -10e10)
-    Handle.CFrame = CFrame.new(Vector3.new(SpawnLocation.Position.X, SpawnLocation.Position.Y + math.random(-10, 20), SpawnLocation.Position.Z + math.random(10, 50)))
+    for _, v in next, Hats do
+        v.RotVelocity = Vector3.new(-10e10, -10e10, -10e10)
+        v.CFrame = CFrame.new(Vector3.new(SpawnLocation.Position.X, SpawnLocation.Position.Y + math.random(-10, 20), SpawnLocation.Position.Z + math.random(10, 50)))
+    end
 end)
