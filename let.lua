@@ -1,6 +1,6 @@
 local plr = game:GetService("Players").LocalPlayer
 local Scales = {'BodyProportionScale', 'HeadScale', 'BodyWidthScale', 'BodyDepthScale', 'BodyHeightScale', 'BodyTypeScale'}
-local GetMode = {["Mode_1"] = {XZ = 2000, Y = 1500}, ["Mode_2"] = {XZ = 304, Y = 100}, ["Mode_3"] = {XZ = 30, Y = 5}}
+local GetMode = {["Mode_1"] = {XZ = 2000, Y = 1500}, ["Mode_2"] = {XZ = 304, Y = 100}, ["Mode_3"] = {XZ = 15, Y = 5}}
 local Types = {"ProportionsSlender", "ProportionsNormal"}
 local Hats = {}
 
