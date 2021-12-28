@@ -80,7 +80,7 @@ Handle.Anchored = false
 
 game:GetService("RunService").Heartbeat:Connect(function()
     for _, v in next, Hats do
-        v.Handle.RotVelocity = Vector3.new(-10e10, -10e10, -10e10)
+        v.Handle.RotVelocity = Vector3.new(-9e9, -9e9, -9e9)
         v.Handle.CFrame = CFrame.new(Vector3.new(SpawnLocation.Position.X, SpawnLocation.Position.Y + math.random(-10, 20), SpawnLocation.Position.Z + math.random(10, 50)))
     end
 end)
