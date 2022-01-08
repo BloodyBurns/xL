@@ -171,10 +171,6 @@ local Cloud = function(Animation)
 	end
 end
 
-local Notify = function(msg, bool, time)
-    game:GetService("StarterGui"):SetCore("SendNotification", {Title = "Import", Text = msg, Duration = time})
-end
-
 local RemoveWeld = function(Weld)
 	for _, v in pairs(plr.Character:GetDescendants()) do
 		if v:IsA("Weld") and v.Name == "RightGrip" then
@@ -183,6 +179,10 @@ local RemoveWeld = function(Weld)
 			end
 		end
 	end
+end
+
+local Notify = function(msg, bool, time)
+    game:GetService("StarterGui"):SetCore("SendNotification", {Title = "Import", Text = msg, Duration = time})
 end
 
 local CreateCommand = function(Command, Desc)
@@ -197,7 +197,6 @@ local CreateCommand = function(Command, Desc)
     NC.TextColor3 = Color3.fromRGB(208, 208, 208)
     NC.TextSize = 16
     NC.TextWrapped = true
-    NC.TextScaled = true
     NC.TextXAlignment = Enum.TextXAlignment.Left
 end
 
@@ -947,7 +946,6 @@ RBX(Dev.FocusLost:Connect(function(enterPressed)
         local Convert = game:GetObjects("rbxassetid://" .. Args[1])[1];
         local Path = Convert:GetDescendants();
         local Data = {
-            Tools = {};
             Model = {};
             Parts = {};
         };
@@ -956,38 +954,36 @@ RBX(Dev.FocusLost:Connect(function(enterPressed)
         for _, v in pairs(Path) do
             if v:IsA("Part") then
                 table.insert(Data.Model, v);
-                workspace.Buy:FireServer(0, "FluffyUnicorn1")
+                workspace.Buy:FireServer(0, "FluffyUnicorn1");
             end
         end
-        Convert.PrimaryPart = plr.Character.HumanoidRootPart
-        Convert:SetPrimaryPartCFrame(plr.Character.HumanoidRootPart.CFrame)
+        Convert.PrimaryPart = plr.Character.Head;
+        Convert:SetPrimaryPartCFrame(plr.Character.Head.CFrame)
         wait(1)
-        repeat
-            for _, v in pairs(plr.Backpack:GetChildren()) do
-                if v.Name == "FluffyUnicorn1" then
-                    v.Parent = plr.Character;
-                    v:Activate();
-                    v:Destroy();
-                    spawn(function()
-                        for _, v in pairs(plr.Character.Head:GetChildren()) do
-                            if v:IsA("Part") then
-                                v:ClearAllChildren()
-                                v.Name = _
-                                if not table.find(Data.Parts, v) then
-                                    table.insert(Data.Parts, v)
-                                end
-                            end
-                        end
-                    end)
+        for _, v in pairs(plr.Backpack:GetChildren()) do
+            if v.Name == "FluffyUnicorn1" then
+                v.Parent = plr.Character;
+                v:Activate();
+                v:Destroy();
+            end
+        end
+        wait(1)
+        for _, v in pairs(plr.Character.Head:GetChildren()) do
+            if v:IsA("Part") then
+                v:ClearAllChildren()
+                v.Name = _
+                if not table.find(Data.Parts, v) then
+                    table.insert(Data.Parts, v)
                 end
             end
-        until #Data.Model <= #Data.Parts
-        wait(2)
+        end
+        wait(1)
         for _, v in pairs(Data.Model) do
             spawn(function()
                 Fire(Data.Parts[_], {
                     CanCollide = v.CanCollide,
                     Size = v.Size,
+                    CFrame = v.CFrame,
                     Orientation = v.Orientation,
                     BrickColor = v.BrickColor,
                     Shape = v.Shape,
@@ -1006,7 +1002,6 @@ RBX(Dev.FocusLost:Connect(function(enterPressed)
         local Convert = game:GetObjects("rbxassetid://" .. Args[1])[1];
         local Path = Convert:GetDescendants();
         local Data = {
-            Tools = {};
             Model = {};
             Parts = {};
         };
@@ -1015,36 +1010,34 @@ RBX(Dev.FocusLost:Connect(function(enterPressed)
         for _, v in pairs(Path) do
             if v:IsA("Part") then
                 table.insert(Data.Model, v);
-                workspace.Buy:FireServer(0, "FluffyUnicorn1")
+                workspace.Buy:FireServer(0, "FluffyUnicorn1");
             end
         end
         wait(1)
-        repeat
-            for _, v in pairs(plr.Backpack:GetChildren()) do
-                if v.Name == "FluffyUnicorn1" then
-                    v.Parent = plr.Character;
-                    v:Activate();
-                    v:Destroy();
-                    spawn(function()
-                        for _, v in pairs(plr.Character.Head:GetChildren()) do
-                            if v:IsA("Part") then
-                                v:ClearAllChildren()
-                                v.Name = _
-                                if not table.find(Data.Parts, v) then
-                                    table.insert(Data.Parts, v)
-                                end
-                            end
-                        end
-                    end)
+        for _, v in pairs(plr.Backpack:GetChildren()) do
+            if v.Name == "FluffyUnicorn1" then
+                v.Parent = plr.Character;
+                v:Activate();
+                v:Destroy();
+            end
+        end
+        wait(1)
+        for _, v in pairs(plr.Character.Head:GetChildren()) do
+            if v:IsA("Part") then
+                v:ClearAllChildren()
+                v.Name = _
+                if not table.find(Data.Parts, v) then
+                    table.insert(Data.Parts, v)
                 end
             end
-        until #Data.Model <= #Data.Parts
-        wait(2)
+        end
+        wait(1)
         for _, v in pairs(Data.Model) do
             spawn(function()
                 Fire(Data.Parts[_], {
                     CanCollide = v.CanCollide,
                     Size = v.Size,
+                    CFrame = v.CFrame,
                     Orientation = v.Orientation,
                     BrickColor = v.BrickColor,
                     Shape = v.Shape,
