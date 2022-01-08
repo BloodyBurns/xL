@@ -956,8 +956,11 @@ RBX(Dev.FocusLost:Connect(function(enterPressed)
         for _, v in pairs(Path) do
             if v:IsA("Part") then
                 table.insert(Data.Model, v);
+                workspace.Buy:FireServer(0, "FluffyUnicorn1")
             end
         end
+        Convert.PrimaryPart = plr.Character.HumanoidRootPart
+        Convert:SetPrimaryPartCFrame(plr.Character.HumanoidRootPart.CFrame)
         wait(1)
         repeat
             for _, v in pairs(plr.Backpack:GetChildren()) do
@@ -1012,6 +1015,7 @@ RBX(Dev.FocusLost:Connect(function(enterPressed)
         for _, v in pairs(Path) do
             if v:IsA("Part") then
                 table.insert(Data.Model, v);
+                workspace.Buy:FireServer(0, "FluffyUnicorn1")
             end
         end
         wait(1)
