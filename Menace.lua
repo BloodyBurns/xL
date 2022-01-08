@@ -955,11 +955,10 @@ RBX(Dev.FocusLost:Connect(function(enterPressed)
             if v:IsA("Part") then
                 table.insert(Data.Model, v);
                 workspace.Buy:FireServer(0, "FluffyUnicorn1");
+                Convert.PrimaryPart = v;
             end
         end
-        Convert.PrimaryPart = plr.Character.Head;
-        Convert:SetPrimaryPartCFrame(plr.Character.Head.CFrame)
-        wait(1)
+        Convert:SetPrimaryPartCFrame(plr.Character.Head.CFrame * CFrame.new(0, -2.5, 0))        wait(1)
         for _, v in pairs(plr.Backpack:GetChildren()) do
             if v.Name == "FluffyUnicorn1" then
                 v.Parent = plr.Character;
