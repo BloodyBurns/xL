@@ -966,7 +966,7 @@ RBX(Dev.FocusLost:Connect(function(enterPressed)
                 v:Destroy();
                 spawn(function()
                     for _, v in pairs(plr.Character.Head:GetChildren()) do
-                        if v:IsA("Part") then
+                        if v:IsA("Part") and v.Name == "Fluffy" then
                             v:ClearAllChildren()
                             v.Name = _
                             if not table.find(Data.Parts, v) then
@@ -1020,7 +1020,7 @@ RBX(Dev.FocusLost:Connect(function(enterPressed)
                 v:Destroy();
                 spawn(function()
                     for _, v in pairs(plr.Character.Head:GetChildren()) do
-                        if v:IsA("Part") then
+                        if v:IsA("Part") and v.Name == "Fluffy" then
                             v:ClearAllChildren()
                             v.Name = _
                             if not table.find(Data.Parts, v) then
@@ -1032,16 +1032,6 @@ RBX(Dev.FocusLost:Connect(function(enterPressed)
             end
         end
         repeat wait() until not plr.Character:FindFirstChild("FluffyUnicorn1") and not plr.Backpack:FindFirstChild("FluffyUnicorn1");
-        for _, v in pairs(plr.Character.Head:GetChildren()) do
-            if v:IsA("Part") then
-                v:ClearAllChildren()
-                v.Name = _
-                if not table.find(Data.Parts, v) then
-                    table.insert(Data.Parts, v)
-                end
-            end
-        end
-        wait(1)
         for _, v in pairs(Data.Model) do
             spawn(function()
                 Fire(Data.Parts[_], {
