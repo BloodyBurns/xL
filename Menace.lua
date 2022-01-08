@@ -171,6 +171,10 @@ local Cloud = function(Animation)
 	end
 end
 
+local Notify = function(msg, bool, time)
+    game:GetService("StarterGui"):SetCore("SendNotification", {Title = "Import", Text = msg, Duration = time})
+end
+
 local RemoveWeld = function(Weld)
 	for _, v in pairs(plr.Character:GetDescendants()) do
 		if v:IsA("Weld") and v.Name == "RightGrip" then
@@ -954,8 +958,6 @@ RBX(Dev.FocusLost:Connect(function(enterPressed)
                 table.insert(Data.Model, v);
             end
         end
-        Convert.PrimaryPart = plr.Character.HumanoidRootPart
-        Convert:SetPrimaryPartCFrame(plr.Character.HumanoidRootPart.CFrame)
         wait(1)
         repeat
             for _, v in pairs(plr.Backpack:GetChildren()) do
@@ -981,7 +983,6 @@ RBX(Dev.FocusLost:Connect(function(enterPressed)
         for _, v in pairs(Data.Model) do
             spawn(function()
                 Fire(Data.Parts[_], {
-                    CFrame = v.CFrame,
                     CanCollide = v.CanCollide,
                     Size = v.Size,
                     Orientation = v.Orientation,
@@ -1038,7 +1039,6 @@ RBX(Dev.FocusLost:Connect(function(enterPressed)
         for _, v in pairs(Data.Model) do
             spawn(function()
                 Fire(Data.Parts[_], {
-                    CFrame = v.CFrame,
                     CanCollide = v.CanCollide,
                     Size = v.Size,
                     Orientation = v.Orientation,
