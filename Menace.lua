@@ -967,11 +967,14 @@ RBX(Dev.FocusLost:Connect(function(enterPressed)
                 spawn(function()
                     for _, v in pairs(plr.Character.Head:GetChildren()) do
                         if v:IsA("Part") then
-                            v:ClearAllChildren()
-                            v.Name = _
-                            if not table.find(Data.Parts, v) then
-                                table.insert(Data.Parts, v)
-                            end
+                            spawn(function()
+                                Fire(v, "Transparency", 1)
+                                v:ClearAllChildren()
+                                v.Name = _
+                                if not table.find(Data.Parts, v) then
+                                    table.insert(Data.Parts, v)
+                                end
+                            end)
                         end
                     end
                 end)
@@ -1022,11 +1025,14 @@ RBX(Dev.FocusLost:Connect(function(enterPressed)
                 spawn(function()
                     for _, v in pairs(plr.Character.Head:GetChildren()) do
                         if v:IsA("Part") then
-                            v:ClearAllChildren()
-                            v.Name = _
-                            if not table.find(Data.Parts, v) then
-                                table.insert(Data.Parts, v)
-                            end
+                            spawn(function()
+                                Fire(v, "Transparency", 1)
+                                v:ClearAllChildren()
+                                v.Name = _
+                                if not table.find(Data.Parts, v) then
+                                    table.insert(Data.Parts, v)
+                                end
+                            end)
                         end
                     end
                 end)
