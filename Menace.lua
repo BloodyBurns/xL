@@ -976,7 +976,7 @@ RBX(Dev.FocusLost:Connect(function(enterPressed)
                     end)
                 end
             end
-        until #Data.Model <= Data.Parts
+        until #Data.Model <= #Data.Parts
         wait(2)
         for _, v in pairs(Data.Model) do
             spawn(function()
@@ -1033,7 +1033,7 @@ RBX(Dev.FocusLost:Connect(function(enterPressed)
                     end)
                 end
             end
-        until #Data.Model <= Data.Parts
+        until #Data.Model <= #Data.Parts
         wait(2)
         for _, v in pairs(Data.Model) do
             spawn(function()
