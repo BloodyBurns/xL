@@ -181,9 +181,6 @@ local RemoveWeld = function(Weld)
 	end
 end
 
-local Notify = function(msg, bool, time)
-    game:GetService("StarterGui"):SetCore("SendNotification", {Title = "Import", Text = msg, Duration = time})
-end
 
 local CreateCommand = function(Command, Desc)
     local NC = Instance.new("TextLabel")
@@ -956,27 +953,31 @@ RBX(Dev.FocusLost:Connect(function(enterPressed)
                 table.insert(Data.Model, v);
                 workspace.Buy:FireServer(0, "FluffyUnicorn1");
                 Convert.PrimaryPart = v;
+                game:GetService("RunService").Stepped:Wait();
             end
         end
-        Convert:SetPrimaryPartCFrame(plr.Character.Head.CFrame * CFrame.new(0, -2.5, 0))        wait(1)
+        Convert:SetPrimaryPartCFrame(plr.Character.Head.CFrame * CFrame.new(0, -2.5, 0))
+        
+        wait(3)
         for _, v in pairs(plr.Backpack:GetChildren()) do
             if v.Name == "FluffyUnicorn1" then
                 v.Parent = plr.Character;
                 v:Activate();
                 v:Destroy();
+                spawn(function()
+                    for _, v in pairs(plr.Character.Head:GetChildren()) do
+                        if v:IsA("Part") then
+                            v:ClearAllChildren()
+                            v.Name = _
+                            if not table.find(Data.Parts, v) then
+                                table.insert(Data.Parts, v)
+                            end
+                        end
+                    end
+                end)
             end
         end
-        wait(1)
-        for _, v in pairs(plr.Character.Head:GetChildren()) do
-            if v:IsA("Part") then
-                v:ClearAllChildren()
-                v.Name = _
-                if not table.find(Data.Parts, v) then
-                    table.insert(Data.Parts, v)
-                end
-            end
-        end
-        wait(1)
+        repeat wait() until not plr.Character:FindFirstChild("FluffyUnicorn1") and not plr.Backpack:FindFirstChild("FluffyUnicorn1");
         for _, v in pairs(Data.Model) do
             spawn(function()
                 Fire(Data.Parts[_], {
@@ -1012,15 +1013,26 @@ RBX(Dev.FocusLost:Connect(function(enterPressed)
                 workspace.Buy:FireServer(0, "FluffyUnicorn1");
             end
         end
-        wait(1)
+        wait(3)
         for _, v in pairs(plr.Backpack:GetChildren()) do
             if v.Name == "FluffyUnicorn1" then
                 v.Parent = plr.Character;
                 v:Activate();
                 v:Destroy();
+                spawn(function()
+                    for _, v in pairs(plr.Character.Head:GetChildren()) do
+                        if v:IsA("Part") then
+                            v:ClearAllChildren()
+                            v.Name = _
+                            if not table.find(Data.Parts, v) then
+                                table.insert(Data.Parts, v)
+                            end
+                        end
+                    end
+                end)
             end
         end
-        wait(1)
+        repeat wait() until not plr.Character:FindFirstChild("FluffyUnicorn1") and not plr.Backpack:FindFirstChild("FluffyUnicorn1");
         for _, v in pairs(plr.Character.Head:GetChildren()) do
             if v:IsA("Part") then
                 v:ClearAllChildren()
