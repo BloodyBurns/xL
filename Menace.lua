@@ -1064,7 +1064,8 @@ RBX(Dev.FocusLost:Connect(function(enterPressed)
         Cloud();
 
         local Decals = {1890649620, 1890650237, 1890652445, 1890653369, 1890652445, 1890650237, 1890652445}
-
+        local VIP = {false, nil}
+        
         workspace.GuiEvent:FireServer("")
         for _, v in next, plr.Character:WaitForChild("").Head:GetChildren() do
             if not v:IsA("Weld") then
@@ -1073,7 +1074,11 @@ RBX(Dev.FocusLost:Connect(function(enterPressed)
         end
         for _, v in next, plr.Character:GetDescendants() do
             if v:IsA("BasePart") then
-                v.Transparency = 1;
+                Fire(v, "Transparency", 1)
+            end
+            if v:IsA("TextLabel") then
+                VIP = {true, v, v.Parent}
+                Fire(v, "Text", "")
             end
         end
 
@@ -1100,6 +1105,11 @@ RBX(Dev.FocusLost:Connect(function(enterPressed)
         Fire(Audio1:Play())
         Fire(Audio2:Play())
 
+
+        if VIP[1] then
+            Fire(VIP[2], {Font = 4, Size = UDim2.new(4, 0, 1, 0), Position = UDim2.new(-3, 0, 0, 0)})
+        end
+
         for _, v in next, plr.Character:GetChildren() do
             if v:IsA("BasePart") then
                 rbx[#rbx+1] = v.Touched:Connect(function(vm)
@@ -1113,9 +1123,19 @@ RBX(Dev.FocusLost:Connect(function(enterPressed)
                         Cloud();
 
                         spawn(function()
+                            if VIP[1] then
+                                Fire(VIP[3], "AlwaysOnTop", true)
+                                Fire(VIP[2], "Text", "Get rule slap "..game:GetService("Players")[vm.Parent.Name].DisplayName)
+                            end
+
                             Fire(Audio2, {TimePosition = 0, Volume = math.huge}); wait(0.4)
                             Fire(Audio2, "Volume", 0)
                             Activated = false
+
+                            if VIP[1] then
+                                wait(0.5)
+                                Fire(VIP[2], "Text", "")
+                            end
                         end)
 
                         plr.Character.PompousTheCloud.EffectCloud:ClearAllChildren(); wait(0.2)
@@ -1155,7 +1175,7 @@ end))
 update("New Command: Baldi,Fixed Bugs,Removed Effect Smoke")
 
 
-ClientChat("Script Version: "..Version, Color3.fromRGB(255, 0, 0))
+ClientChat("Script Version "..Version, Color3.fromRGB(255, 0, 0))
 local pr, r = pcall(function() readfile("Version.txt") end)
 if not pr then
 	writefile("Version.txt", Version)
