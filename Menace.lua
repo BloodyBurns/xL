@@ -1,5 +1,6 @@
 -- Rvmp
 
+local Version = "v0.0.2"
 if game:GetService("CoreGui"):FindFirstChild("Menace") then
     game:GetService("CoreGui").Menace:Destroy()
     for _, v in pairs(bng) do
@@ -23,6 +24,7 @@ local Whitelist = {}
 local Blacklist = {}
 local Auras = {3569167400, 5294214457, 7213381459, 7602575402, 8035020429, 8447593787}
 local GT = ""
+local uLogs = ""
 getgenv().bng = {}
 
 Menace.Name = "Menace"
@@ -141,6 +143,13 @@ local Player = function(Ev)
 	return DataBase
 end
 
+local update = function(log)
+    uLogs = log
+end
+local ClientChat = function(msg, color)
+    game:GetService("StarterGui"):SetCore("ChatMakeSystemMessage", {Text = msg, Color = color, Font = Enum.Font.Cartoon, FontSize = Enum.FontSize.Size48})
+end
+
 local Fire = function(obj, prop, val)
     if type(prop) == "table" then
         for n, x in pairs(prop) do
@@ -162,6 +171,7 @@ local Cloud = function(Animation)
 		if not plr.Character.PompousTheCloud:FindFirstChild("EffectCloud") then
             plr.Character.PompousTheCloud.ServerControl:InvokeServer("Fly", {["Flying"] = true})
             Fire(plr.Character.PompousTheCloud.EffectCloud.Mesh, "Scale", Vector3.new(0, 0, 0))
+            Fire(plr.Character.PompousTheCloud.EffectCloud.Smoke, "Enabled", false)
             for _, v in pairs(plr.Character.Humanoid:GetPlayingAnimationTracks()) do
                 if v.Name == "ToolNoneAnim" then
                     v:Stop()
@@ -1050,8 +1060,124 @@ RBX(Dev.FocusLost:Connect(function(enterPressed)
         Notify("Completed Building in: "..(tostring(tick()-Start):split(".")[1]).." seconds!", false, 3)
     end)
 
+    AddCommand("baldi", false, 0, function()
+        Cloud();
+
+        local Decals = {1890649620, 1890650237, 1890652445, 1890653369, 1890652445, 1890650237, 1890652445}
+
+        workspace.GuiEvent:FireServer("")
+        for _, v in next, plr.Character:WaitForChild("").Head:GetChildren() do
+            if not v:IsA("Weld") then
+                v:Destroy()
+            end
+        end
+        for _, v in next, plr.Character:GetDescendants() do
+            if v:IsA("BasePart") then
+                v.Transparency = 1;
+            end
+        end
+
+        wait(1);
+
+        local rbx = {}
+        local Activated = false
+        local Part, Decal, Decal2, i = plr.Character[""].Head, plr.Character.Head.face, plr.Character.Torso.roblox, 1
+
+        Fire(Part, "Size", Vector3.new(5, 8, 0))
+        Fire(Decal, {Face = Enum.NormalId.Front, Parent = Part})
+        Fire(Decal2, {Face = Enum.NormalId.Back, Parent = Part})
+
+        plr.Character.PompousTheCloud.ServerControl:InvokeServer("Fly", {["Flying"] = true})
+        Fire(plr.Character.PompousTheCloud.EffectCloud.Wind, {Name = "Background Theme", Parent = Part})
+        wait(0.2)
+        plr.Character.PompousTheCloud.ServerControl:InvokeServer("Fly", {["Flying"] = true})
+        Fire(plr.Character.PompousTheCloud.EffectCloud.Wind, {Name = "Rule Slap", Parent = Part})
+        wait(0.4)
+
+        local Audio1, Audio2 = Part["Background Theme"], Part["Rule Slap"]
+        Fire(Audio1, {Volume = 5, SoundId = "rbxassetid://1828370087", MaxDistance = math.huge, EmitterSize = math.huge, PlaybackSpeed = 1, Playing = true})
+        Fire(Audio2, {Volume = 0, SoundId = "rbxassetid://1841427728", MaxDistance = math.huge, EmitterSize = math.huge, PlaybackSpeed = 1, Playing = true})
+        Fire(Audio1:Play())
+        Fire(Audio2:Play())
+
+        for _, v in next, plr.Character:GetChildren() do
+            if v:IsA("BasePart") then
+                rbx[#rbx+1] = v.Touched:Connect(function(vm)
+                    if vm.Parent:FindFirstChild("Humanoid") and vm.Parent.Humanoid.Health>0 then
+                        if Activated then
+                            return '<void>'
+                        end
+
+                        Activated = true
+
+                        Cloud();
+
+                        spawn(function()
+                            Fire(Audio2, {TimePosition = 0, Volume = math.huge}); wait(0.4)
+                            Fire(Audio2, "Volume", 0)
+                            Activated = false
+                        end)
+
+                        plr.Character.PompousTheCloud.EffectCloud:ClearAllChildren(); wait(0.2)
+                        Fire(plr.Character.PompousTheCloud.EffectCloud, {Name = "Head", Parent = vm.Parent})
+                    end
+                end)
+            end
+        end
+
+        plr.Character.Humanoid.Died:Connect(function()
+            for _, v in next, rbx do
+                v:Disconnect()
+            end
+        end)
+        while plr.Character.Humanoid.Health>0 and wait(1/#Decals) do
+            if plr.Character:FindFirstChild("PompousTheCloud") then
+                Fire(Decal, "Texture", "rbxassetid://"..Decals[i])
+                Fire(Decal2, "Texture", "rbxassetid://"..Decals[i])
+
+                i += 1
+                if i == #Decals then
+                    i = 1
+                end
+            end
+        end
+    end)
+
     return Frame:TweenPosition(UDim2.new(0, 0, 0.963, 0), "In", "Linear", 0.4)
 end))
+
+--------------------------------------------------------------
+--------------------------------------------------------------
+--                      Just Update Logs                    --
+--------------------------------------------------------------
+--------------------------------------------------------------
+
+update("New Command: Baldi,Fixed Bugs,Removed Effect Smoke")
+
+
+ClientChat("Script Version: "..Version, Color3.fromRGB(255, 0, 0))
+local pr, r = pcall(function() readfile("Version.txt") end)
+if not pr then
+	writefile("Version.txt", Version)
+    if #uDate ~= 0 then
+        local uDate = uLogs:split(",")
+        for _, v in next, uDate do
+            ClientChat(v, Color3.fromRGB(255, 0, 191))
+        end
+    end
+end
+
+if pr then
+    local Versx = readfile("Version.txt")
+    if Versx ~= Version then
+        writefile("Version.txt", Version)
+
+        local uDate = uLogs:split(",")
+        for _, v in next, uDate do
+            ClientChat(v, Color3.fromRGB(255, 0, 191))
+        end
+    end
+end
 
 --[[
     [ Notes ]:
