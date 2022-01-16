@@ -1,6 +1,6 @@
 local plr = game:GetService("Players").LocalPlayer
 local Scales = {'BodyProportionScale', 'HeadScale', 'BodyWidthScale', 'BodyDepthScale', 'BodyHeightScale', 'BodyTypeScale'}
-local GetMode = {["Mode_1"] = {XZ = 2000, Y = 1500}, ["Mode_2"] = {XZ = 304, Y = 100}, ["Mode_3"] = {XZ = 15, Y = 5}}
+local GetMode = {["Mode_1"] = {XZ = 2000, Y = 1500}, ["Mode_2"] = {XZ = 304, Y = 100}, ["Mode_3"] = {XZ = 15, Y = 5}, ["Mode_3"] = {XZ = 0, Y = 0}}
 local Types = {"ProportionsSlender", "ProportionsNormal"}
 local Hats = {}
 
@@ -18,23 +18,21 @@ if #Hats == 0 then
 end
 
 local Handle = Hats[#Hats].Handle
-if Mode <= 3 then
-    if (Handle.Size.X <= GetMode["Mode_"..Mode].XZ or Handle.Size.Y <= GetMode["Mode_"..Mode].Y) or (Handle.Size.X <= GetMode["Mode_"..Mode].XZ and Handle.Size.Y <= GetMode["Mode_"..Mode].Y) then
-        for _, v in next, Scales do
-            if plr.Character.Humanoid:FindFirstChild(v) then
-                for _, v2 in pairs(plr.Character:GetDescendants()) do
-                    if v2.Name == "Handle"  then
-                        if v2:FindFirstChild("OriginalSize") then
-                            v2.OriginalSize:Destroy()
-                        end
+if (Handle.Size.X <= GetMode["Mode_"..Mode].XZ or Handle.Size.Y <= GetMode["Mode_"..Mode].Y) or (Handle.Size.X <= GetMode["Mode_"..Mode].XZ and Handle.Size.Y <= GetMode["Mode_"..Mode].Y) then
+    for _, v in next, Scales do
+        if plr.Character.Humanoid:FindFirstChild(v) then
+            for _, v2 in pairs(plr.Character:GetDescendants()) do
+                if v2.Name == "Handle"  then
+                    if v2:FindFirstChild("OriginalSize") then
+                        v2.OriginalSize:Destroy()
                     end
                 end
-                plr.Character.Humanoid[v]:Destroy(); wait(0.2)
             end
+            plr.Character.Humanoid[v]:Destroy(); wait(0.2)
         end
-        if (Handle.Size.X <= GetMode["Mode_"..Mode].XZ or Handle.Size.Y <= GetMode["Mode_"..Mode].Y) or (Handle.Size.X <= GetMode["Mode_"..Mode].XZ and Handle.Size.Y <= GetMode["Mode_"..Mode].Y) then
-            return game.StarterGui:SetCore("ChatMakeSystemMessage", {Text = "<ReScale!>", Color = Color3.fromRGB(0, 255, 255), Font = Enum.Font.Cartoon, FontSize = Enum.FontSize.Size48})
-        end
+    end
+	if (Handle.Size.X <= GetMode["Mode_"..Mode].XZ or Handle.Size.Y <= GetMode["Mode_"..Mode].Y) or (Handle.Size.X <= GetMode["Mode_"..Mode].XZ and Handle.Size.Y <= GetMode["Mode_"..Mode].Y) then
+		return game.StarterGui:SetCore("ChatMakeSystemMessage", {Text = "<ReScale!>", Color = Color3.fromRGB(0, 255, 255), Font = Enum.Font.Cartoon, FontSize = Enum.FontSize.Size48})
     end
 end
 
