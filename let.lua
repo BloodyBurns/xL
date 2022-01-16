@@ -84,8 +84,9 @@ game:GetService("RunService").Heartbeat:Connect(function()
 		local CF = CFrame.new(Vector3.new(SpawnLocation.Position.X, SpawnLocation.Position.Y + math.random(-10, 20), SpawnLocation.Position.Z + math.random(10, 50)))
 		
         if Mode == 4 then
+            v.Handle.Velocity = Vector3.new(0, 0, 0)
             Rot = Vector3.new(0, 0, 0)
-            CF = CFrame.new(Vector3.new(SpawnLocation.Position))
+            CF = SpawnLocation.CFrame
         end
 
         v.Handle.RotVelocity = Rot
