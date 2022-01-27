@@ -428,7 +428,7 @@ LocalFrame.BackgroundTransparency = 0.950
 LocalFrame.Position = UDim2.new(0.00995355006, 0, 0.0276816618, 0)
 LocalFrame.Size = UDim2.new(0, 542, 0, 275)
 
-speed.Name = "speed"
+speed.Name = "Speed"
 speed.Parent = LocalFrame
 speed.BackgroundColor3 = Color3.fromRGB(33, 33, 33)
 speed.BackgroundTransparency = 1.000
@@ -436,7 +436,7 @@ speed.BorderSizePixel = 0
 speed.Position = UDim2.new(0.0129151288, 0, 0.0327272713, 0)
 speed.Size = UDim2.new(0, 89, 0, 26)
 speed.Font = Enum.Font.PatrickHand
-speed.Text = "Speed: Value"
+speed.Text = "Speed: "
 speed.TextColor3 = Color3.fromRGB(255, 255, 255)
 speed.TextScaled = true
 speed.TextSize = 14.000
@@ -475,7 +475,7 @@ reset.TextScaled = true
 reset.TextSize = 14.000
 reset.TextWrapped = true
 
-jumppower.Name = "jumppower"
+jumppower.Name = "JumpPower"
 jumppower.Parent = LocalFrame
 jumppower.BackgroundColor3 = Color3.fromRGB(33, 33, 33)
 jumppower.BackgroundTransparency = 1.000
@@ -483,7 +483,7 @@ jumppower.BorderSizePixel = 0
 jumppower.Position = UDim2.new(0.0129151288, 0, 0.152727276, 0)
 jumppower.Size = UDim2.new(0, 89, 0, 26)
 jumppower.Font = Enum.Font.PatrickHand
-jumppower.Text = "JumpP: Value"
+jumppower.Text = "JumpP: "
 jumppower.TextColor3 = Color3.fromRGB(255, 255, 255)
 jumppower.TextScaled = true
 jumppower.TextSize = 14.000
@@ -509,7 +509,7 @@ dragger_2.Position = UDim2.new(-0.0210525505, 0, -0.400000006, 0)
 dragger_2.Size = UDim2.new(0, 25, 0, 25)
 dragger_2.Image = "rbxassetid://264754931"
 
-gravity.Name = "gravity"
+gravity.Name = "Gravity"
 gravity.Parent = LocalFrame
 gravity.BackgroundColor3 = Color3.fromRGB(33, 33, 33)
 gravity.BackgroundTransparency = 1.000
@@ -517,7 +517,7 @@ gravity.BorderSizePixel = 0
 gravity.Position = UDim2.new(0.0129151288, 0, 0.265454531, 0)
 gravity.Size = UDim2.new(0, 89, 0, 26)
 gravity.Font = Enum.Font.PatrickHand
-gravity.Text = "Gravity: Value"
+gravity.Text = "Gravity: "
 gravity.TextColor3 = Color3.fromRGB(255, 255, 255)
 gravity.TextScaled = true
 gravity.TextSize = 14.000
@@ -543,7 +543,7 @@ dragger_3.Position = UDim2.new(-0.0210525505, 0, -0.400000006, 0)
 dragger_3.Size = UDim2.new(0, 25, 0, 25)
 dragger_3.Image = "rbxassetid://264754931"
 
-fov.Name = "fov"
+fov.Name = "FieldOfView"
 fov.Parent = LocalFrame
 fov.BackgroundColor3 = Color3.fromRGB(33, 33, 33)
 fov.BackgroundTransparency = 1.000
@@ -551,7 +551,7 @@ fov.BorderSizePixel = 0
 fov.Position = UDim2.new(0.0129151288, 0, 0.385454535, 0)
 fov.Size = UDim2.new(0, 89, 0, 26)
 fov.Font = Enum.Font.PatrickHand
-fov.Text = "FOV: Value"
+fov.Text = "FOV: "
 fov.TextColor3 = Color3.fromRGB(255, 255, 255)
 fov.TextScaled = true
 fov.TextSize = 14.000
@@ -654,7 +654,7 @@ InsidePrison.BorderColor3 = Color3.fromRGB(27, 42, 53)
 InsidePrison.BorderSizePixel = 0
 InsidePrison.Position = UDim2.new(0.0313653126, 0, 0.156363636, 0)
 InsidePrison.Size = UDim2.new(0, 176, 0, 160)
-InsidePrison.ScrollBarThickness = 0
+InsidePrison.ScrollBarThickness = 4
 
 IPLayout.Name = "IPLayout"
 IPLayout.Parent = InsidePrison
@@ -696,7 +696,7 @@ OutsidePrison.BorderColor3 = Color3.fromRGB(27, 42, 53)
 OutsidePrison.BorderSizePixel = 0
 OutsidePrison.Position = UDim2.new(0.400368989, 0, 0.156363636, 0)
 OutsidePrison.Size = UDim2.new(0, 176, 0, 160)
-OutsidePrison.ScrollBarThickness = 0
+OutsidePrison.ScrollBarThickness = 4
 
 OPLayout.Name = "OPLayout"
 OPLayout.Parent = OutsidePrison
@@ -902,6 +902,7 @@ NLayout.VerticalAlignment = Enum.VerticalAlignment.Bottom
 NLayout.Padding = UDim.new(0, 5)
 
 local Tabs = {Credit, Local, Items, Tps, Teams, Others, Misc}
+local Sliders = {dragger, dragger_2, dragger_3, dragger_4}
 local Items = {
 	["Guns"] = {"AK-47", "M4A1", "M9", "Remington 870"},
 	["Other"] = {"Lunch", "Crude Knife", "Hammer", "Riot Shield"},
@@ -1061,60 +1062,74 @@ end
 
 AutoRespawn = false
 AutoItems = false
-truefalse.MouseButton1Click:Connect(function()
+truefalse_2.MouseButton1Click:Connect(function()
 	AutoItems = not AutoItems
 	
 	if AutoItems then
-		respawn()
-		getgenv().AutoITMS = plr.CharacterAdded:Connect(function()
-			getgenv().AutoITMS2 = plr.Character:WaitForChild("Humanoid").Died:Connect(function()
-				respawn()
-				for _, v2 in next, workspace["Prison_ITEMS"]:GetDescendants() do
-					if v2:IsA("BasePart") and v2.Name == "ITEMPICKUP" and v2.Parent.Name == v.Name then
-						if not plr.Backpack:FindFirstChild(v2.Parent.Name) and not plr.Character:FindFirstChild(v2.Parent.Name) then
-							workspace.Remote.ItemHandler:InvokeServer(v2)
-						end
-					end
-				end
-			end)
-		end)
-		truefalse:TweenPosition(UDim2.new(0.6, 0, -0.4, 0), "Out", "Quint", 0.4)
-		onoff.ImageColor3 = Color3.new(0, 1, 0)
-	end
-	
-	if not AutoItems then
-		respawn()
-		AutoITMS:Disconnect()
-		AutoITMS2:Disconnect()
-		truefalse:TweenPosition(UDim2.new(-0.1, 0, -0.4, 0), "In", "Quint", 0.4)
-		onoff.ImageColor3 = Color3.new(1, 0, 0)
-	end
-end)
-truefalse_2.MouseButton1Click:Connect(function()
-	AutoRespawn = not AutoRespawn
-
-	if AutoRespawn then
-		respawn()
 		getgenv().AutoRPS = plr.CharacterAdded:Connect(function()
 			getgenv().AutoRPS2 = plr.Character:WaitForChild("Humanoid").Died:Connect(function()
 				respawn()
-				for _, v in next, workspace["Prison_ITEMS"]:GetDescendants() do
-					if v:IsA("BasePart") and v.Name == "ITEMPICKUP" and v.Parent.Name ~= "nil" then
-						if not plr.Backpack:FindFirstChild(v.Parent.Name) and not plr.Character:FindFirstChild(v.Parent.Name) then
-							workspace.Remote.ItemHandler:InvokeServer(v)
-						end
-					end
-				end
 			end)
 		end)
-		truefalse_2:TweenPosition(UDim2.new(0.6, 0, -0.4, 0), "Out", "Quint", 0.4)
+		respawn()
+		truefalse_2:TweenPosition(UDim2.new(0.6, 0, -0.4, 0), "Out", "Quint", 0.2)
 		onoff_2.ImageColor3 = Color3.new(0, 1, 0)
 	end
-
-	if not AutoRespawn then
-		respawn()
+	
+	if not AutoItems then
 		AutoRPS:Disconnect()
-		AutoRPS2:TweenPosition(UDim2.new(-0.1, 0, -0.4, 0), "In", "Quint", 0.4)
+		AutoRPS2:Disconnect()
+		respawn()
+		truefalse_2:TweenPosition(UDim2.new(-0.1, 0, -0.4, 0), "In", "Quint", 0.2)
 		onoff_2.ImageColor3 = Color3.new(1, 0, 0)
 	end
 end)
+truefalse.MouseButton1Click:Connect(function()
+	AutoItems = not AutoItems
+
+	if AutoItems then
+		getgenv().AutoITMS = plr.CharacterAdded:Connect(function()
+			for _, v2 in next, workspace["Prison_ITEMS"]:GetDescendants() do
+				if v2:IsA("BasePart") and v2.Name == "ITEMPICKUP" and v2.Parent.Name ~= "nil" then
+					if not plr.Backpack:FindFirstChild(v2.Parent.Name) and not plr.Character:FindFirstChild(v2.Parent.Name) then
+						workspace.Remote.ItemHandler:InvokeServer(v2)
+					end
+				end
+			end
+		end)
+		respawn()
+		truefalse:TweenPosition(UDim2.new(0.6, 0, -0.4, 0), "Out", "Quint", 0.2)
+		onoff.ImageColor3 = Color3.new(0, 1, 0)
+	end
+
+	if not AutoItems then
+		AutoITMS:Disconnect()
+		truefalse:TweenPosition(UDim2.new(-0.1, 0, -0.4, 0), "In", "Quint", 0.2)
+		onoff.ImageColor3 = Color3.new(1, 0, 0)
+		respawn()
+	end
+end)
+
+for _, v in next, Sliders do
+	local Dragging = false
+	v.MouseButton1Down:Connect(function()
+		Dragging = true
+	end)
+
+	game:GetService("UserInputService").InputChanged:Connect(function()
+		if Dragging then
+			local abc = v.Parent.Parent.Text:split(" ")
+			local MousePos = game:GetService("UserInputService"):GetMouseLocation()+Vector2.new(0,36)
+			local RelPos = MousePos-v.AbsolutePosition
+			local Precent = math.clamp(RelPos.X/v.AbsoluteSize.X,0,1)
+			v.Position = UDim2.new(Precent,0,0.5,0)
+			v.Parent.Parent.Text = abc[1] .. tostring(Precent*120):split(".")[1]
+		end
+	end)
+
+	game:GetService("UserInputService").InputEnded:Connect(function(input)
+		if input.UserInputType == Enum.UserInputType.MouseButton1 then
+			Dragging = false
+		end
+	end)
+end
