@@ -902,7 +902,7 @@ NLayout.VerticalAlignment = Enum.VerticalAlignment.Bottom
 NLayout.Padding = UDim.new(0, 5)
 
 local Tabs = {Credit, Local, Items, Tps, Teams, Others, Misc}
-local Sliders = {dragger, dragger_2, dragger_3, dragger_4}
+local Sliders = {dragger, dragger_2, dragger_3}
 local Items = {
 	["Guns"] = {"AK-47", "M4A1", "M9", "Remington 870"},
 	["Other"] = {"Lunch", "Crude Knife", "Hammer", "Riot Shield"},
@@ -1062,6 +1062,15 @@ end
 
 AutoRespawn = false
 AutoItems = false
+
+rejoin.MouseButton1Click:Connect(function()
+	game:GetService("TeleportService"):Teleport(game.PlaceId, plr)
+end)
+
+reset.MouseButton1Click:Connect(function()
+	respawn()
+end)
+
 truefalse_2.MouseButton1Click:Connect(function()
 	AutoItems = not AutoItems
 	
@@ -1084,6 +1093,7 @@ truefalse_2.MouseButton1Click:Connect(function()
 		onoff_2.ImageColor3 = Color3.new(1, 0, 0)
 	end
 end)
+
 truefalse.MouseButton1Click:Connect(function()
 	AutoItems = not AutoItems
 
@@ -1111,25 +1121,53 @@ truefalse.MouseButton1Click:Connect(function()
 end)
 
 for _, v in next, Sliders do
-	local Dragging = false
+	local hDragging = false
 	v.MouseButton1Down:Connect(function()
-		Dragging = true
+		hDragging = true
+		v.AnchoredPoint = Vector2.new(0.5, 0.5)
 	end)
 
 	game:GetService("UserInputService").InputChanged:Connect(function()
-		if Dragging then
-			local abc = v.Parent.Parent.Text:split(" ")
+		if hDragging then
 			local MousePos = game:GetService("UserInputService"):GetMouseLocation()+Vector2.new(0,36)
-			local RelPos = MousePos-v.AbsolutePosition
-			local Precent = math.clamp(RelPos.X/v.AbsoluteSize.X,0,1)
+			local RelPos = MousePos-v.Parent.AbsolutePosition
+			local Precent = math.clamp(RelPos.X/v.Parent.AbsoluteSize.X,0,1)
 			v.Position = UDim2.new(Precent,0,0.5,0)
-			v.Parent.Parent.Text = abc[1] .. tostring(Precent*120):split(".")[1]
+			v.Parent.Parent.Text = v.Parent.Parent.Text:split(" ")[1] .. " " .. tostring(Precent*120):split(".")[1]
+			pcall(function()
+				plr.Character.Humanoid[v.Parent.Parent.Name] = tonumber(tostring(Precent*120):split(".")[1])
+			end)
 		end
 	end)
 
 	game:GetService("UserInputService").InputEnded:Connect(function(input)
 		if input.UserInputType == Enum.UserInputType.MouseButton1 then
-			Dragging = false
+			hDragging = false
+			v.AnchoredPoint = Vector2.new(0, 0)
 		end
 	end)
 end
+
+local fDragging = false
+dragger_4.MouseButton1Down:Connect(function()
+	fDragging = true
+	dragger_4.AnchoredPoint = Vector2.new(0.5, 0.5)
+end)
+
+game:GetService("UserInputService").InputChanged:Connect(function()
+	if fDragging then
+		local MousePos = game:GetService("UserInputService"):GetMouseLocation()+Vector2.new(0,36)
+		local RelPos = MousePos-slider.AbsolutePosition
+		local Precent = math.clamp(RelPos.X/slider.AbsoluteSize.X,0,1)
+		dragger_4.Position = UDim2.new(Precent,0,0.5,0)
+		fov.Text = fov.Text:split(" ")[1] .. " " .. tostring(Precent*120):split(".")[1]
+		workspace.CurrentCamera.FieldOfView = tonumber(tostring(Precent*120):split(".")[1])
+	end
+end)
+
+game:GetService("UserInputService").InputEnded:Connect(function(input)
+	if input.UserInputType == Enum.UserInputType.MouseButton1 then
+		fDragging = false
+		dragger_4.AnchoredPoint = Vector2.new(0, 0)
+	end
+end)
