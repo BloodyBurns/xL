@@ -106,4 +106,5 @@ TextButton.MouseButton1Click:Connect(function()
 			v:Destroy()
 		end
 	end
+	loadstring(game:HttpGet('https://raw.githubusercontent.com/BloodyBurns/xL/main/PrisonLifeX.lua'))()
 end)
