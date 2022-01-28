@@ -23,9 +23,6 @@ if CancelPLSXU then
 end
 
 writefile("PrisonLifeXScriptVersion.txt", Version)
-if ScriptData == nil then
-	getgenv().ScriptData = {}
-end
 local PrisonLifeX = Instance.new("ScreenGui")
 local Main = Instance.new("ImageLabel")
 local holder = Instance.new("ImageLabel")
@@ -933,8 +930,6 @@ NLayout.SortOrder = Enum.SortOrder.LayoutOrder
 NLayout.VerticalAlignment = Enum.VerticalAlignment.Bottom
 NLayout.Padding = UDim.new(0, 5)
 
-table.insert(ScriptData, Notification)
-table.insert(ScriptData, PrisonLifeX)
 local Tabs = {Credit, Local, Items, Tps, Teams, Others, Misc}
 local Sliders = {dragger, dragger_2, dragger_3}
 local Items = {
