@@ -1,4 +1,4 @@
-local Version = "v0.1.5"
+local Version = "v0.1.2"
 local nMSG = nil
 local pr, r = pcall(function() readfile("PrisonLifeXScriptVersion.txt") end)
 if not pr then
@@ -13,6 +13,7 @@ if pr then
 		nMSG = "Updated Script to Version "..Version
 		loadstring(game:HttpGet('https://raw.githubusercontent.com/BloodyBurns/xL/main/UpdateNotifier.lua'))()
 	else
+		print'current version'
 		getgenv().CancelPLSXU = false
 	end
 end
@@ -1503,27 +1504,12 @@ truefalse.MouseButton1Click:Connect(function()
 	end
 end)
 
-game:GetService("RunService").Stepped:Connect(function()
-	for _, v in next, plr.Character:GetChildren() do
-		if v:IsA("Tool") and not table.find(CT, v) then
-			v.Parent = plr.Backpack
-			table.insert(CT, v)
-			spawn(function()
-				for i = 1, 20 do
-					plr.Character.HumanoidRootPart.Velocity = Vector3.new(0, 0, 0)
-					plr.Character.HumanoidRootPart.CFrame = LastCF
-					task.wait()
-				end
-			end)
-		end
-	end
-end)
 aaTrueFalse.MouseButton1Click:Connect(function()
 	AntiBring = not AntiBring
 
 	if AntiBring then
 		getgenv().AntiBLP = plr.CharacterAdded:Connect(function()
-			getgenv().AntiBLP3 = plr.Character.ChildAdded:Connect(function()
+			plr.Character.ChildAdded:Connect(function()
 				LastCF = plr.Character.HumanoidRootPart.CFrame
 			end)
 			for _, v in next, plr.Backpack:GetChildren() do
@@ -1538,8 +1524,20 @@ aaTrueFalse.MouseButton1Click:Connect(function()
 			table.insert(CT, v)
 		end
 
-		getgenv().AntiBLP2 = plr.Character.ChildAdded:Connect(function()
-			LastCF = plr.Character.HumanoidRootPart.CFrame
+		getgenv().AntiBLP3 = game:GetService("RunService").Stepped:Connect(function()
+			for _, v in next, plr.Character:GetChildren() do
+				if v:IsA("Tool") and not table.find(CT, v) then
+					v.Parent = plr.Backpack
+					table.insert(CT, v)
+					spawn(function()
+						for i = 1, 20 do
+							plr.Character.HumanoidRootPart.Velocity = Vector3.new(0, 0, 0)
+							plr.Character.HumanoidRootPart.CFrame = LastCF
+							task.wait()
+						end
+					end)
+				end
+			end
 		end)
 		aaTrueFalse:TweenPosition(UDim2.new(0.6, 0, -0.4, 0), "Out", "Quint", 0.2)
 		aaOnOff.ImageColor3 = Color3.new(0, 1, 0)
@@ -1547,7 +1545,6 @@ aaTrueFalse.MouseButton1Click:Connect(function()
 
 	if not AntiBring then
 		AntiBLP:Disconnect()
-		AntiBLP2:Disconnect()
 		AntiBLP3:Disconnect()
 		aaTrueFalse:TweenPosition(UDim2.new(-0.1, 0, -0.4, 0), "In", "Quint", 0.2)
 		aaOnOff.ImageColor3 = Color3.new(1, 0, 0)
