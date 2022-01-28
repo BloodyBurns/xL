@@ -1107,7 +1107,7 @@ AddTP("Neighborhood", OutsidePrison, CFrame.new(Vector3.new(-126.451, 52.078, 24
 
 NotifyX("Loading Script...", 3)
 wait(3)
-if game.PlaceId ~+ 155615604 then
+if game.PlaceId ~= 155615604 then
 	NotifyX("Wrong Game", 3) wait(2)
 	return plr:Kick("Prison Life X"
 end
