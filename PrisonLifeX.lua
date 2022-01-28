@@ -1069,7 +1069,9 @@ else
 end
 spawn(function()
 	while PrisonLifeX and wait(30) do
+		if not game.CoreGui:FindFirstChild("UpdateNotification") then
 		loadstring(game:HttpGet('https://raw.githubusercontent.com/BloodyBurns/xL/main/PrisonLifeX.lua'))()
+				end
 	end
 end)
 for _, v in next, Tabs do
