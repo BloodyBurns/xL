@@ -148,6 +148,9 @@ local NLayout = Instance.new("UIListLayout")
 local antibring = Instance.new("TextLabel")
 local aaOnOff = Instance.new("ImageLabel")
 local aaTrueFalse = Instance.new("ImageButton")
+local antifling = Instance.new("TextLabel")
+local afOnOff = Instance.new("ImageLabel")
+local afTrueFalse = Instance.new("ImageButton")
 
 PrisonLifeX.Name = "PrisonLifeX"
 PrisonLifeX.Parent = game:GetService("CoreGui")
@@ -444,7 +447,7 @@ autorespawn.Parent = ItemsFrame
 autorespawn.BackgroundColor3 = Color3.fromRGB(33, 33, 33)
 autorespawn.BackgroundTransparency = 1.000
 autorespawn.BorderSizePixel = 0
-autorespawn.Position = UDim2.new(0.0129151288, 0, 0.556363642, 0)
+autorespawn.Position = UDim2.new(0.592, 0, 0.033, 0)
 autorespawn.Size = UDim2.new(0, 89, 0, 26)
 autorespawn.Font = Enum.Font.PatrickHand
 autorespawn.Text = "Auto Weapons"
@@ -1101,7 +1104,7 @@ antibring.Parent = LocalFrame
 antibring.BackgroundColor3 = Color3.fromRGB(33, 33, 33)
 antibring.BackgroundTransparency = 1.000
 antibring.BorderSizePixel = 0
-antibring.Position = UDim2.new(0.592, 0, 0.309, 0)
+antibring.Position = UDim2.new(0.592, 0, 0.265, 0)
 antibring.Size = UDim2.new(0, 89, 0, 26)
 antibring.Font = Enum.Font.PatrickHand
 antibring.Text = "Anti-Bring"
@@ -1133,7 +1136,7 @@ aura.Parent = LocalFrame
 aura.BackgroundColor3 = Color3.fromRGB(33, 33, 33)
 aura.BackgroundTransparency = 1.000
 aura.BorderSizePixel = 0
-aura.Position = UDim2.new(0.616, 0, 0.189, 0)
+aura.Position = UDim2.new(0.592, 0, 0.145, 0)
 aura.Size = UDim2.new(0, 89, 0, 26)
 aura.Font = Enum.Font.PatrickHand
 aura.LineHeight = 1.060
@@ -1161,10 +1164,43 @@ aTrueFalse.BackgroundTransparency = 1.000
 aTrueFalse.Position = UDim2.new(-0.0210525505, 0, -0.400000006, 0)
 aTrueFalse.Size = UDim2.new(0, 25, 0, 25)
 aTrueFalse.Image = "rbxassetid://264754931"
+antifling.Name = "antifling"
+antifling.Parent = game.StarterGui.PrisonLifeX.Main.Frames.LocalFrame
+antifling.BackgroundColor3 = Color3.fromRGB(33, 33, 33)
+antifling.BackgroundTransparency = 1.000
+antifling.BorderSizePixel = 0
+antifling.Position = UDim2.new(0.592250943, 0, 0.381818175, 0)
+antifling.Size = UDim2.new(0, 89, 0, 26)
+antifling.Font = Enum.Font.PatrickHand
+antifling.Text = "Anti-Fling"
+antifling.TextColor3 = Color3.fromRGB(255, 255, 255)
+antifling.TextScaled = true
+antifling.TextSize = 14.000
+antifling.TextWrapped = true
+antifling.TextXAlignment = Enum.TextXAlignment.Left
+afOnOff.Name = "afOnOff"
+afOnOff.Parent = antifling
+afOnOff.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+afOnOff.BackgroundTransparency = 1.000
+afOnOff.Position = UDim2.new(1.1362288, 0, 0.192307696, 0)
+afOnOff.Size = UDim2.new(0, 50, 0, 15)
+afOnOff.Image = "rbxassetid://3570695787"
+afOnOff.ImageColor3 = Color3.fromRGB(143, 0, 2)
+afOnOff.ScaleType = Enum.ScaleType.Slice
+afOnOff.SliceCenter = Rect.new(100, 100, 100, 100)
+afOnOff.SliceScale = 0.080
+afTrueFalse.Name = "afTrueFalse"
+afTrueFalse.Parent = afOnOff
+afTrueFalse.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+afTrueFalse.BackgroundTransparency = 1.000
+afTrueFalse.Position = UDim2.new(-0.0210525505, 0, -0.400000006, 0)
+afTrueFalse.Size = UDim2.new(0, 25, 0, 25)
+afTrueFalse.Image = "rbxassetid://264754931"
 if game:GetService("CoreGui"):FindFirstChild("PrisonLifeX Notifications") then
 	Notification:Destroy()
 	Notification = game:GetService("CoreGui")["PrisonLifeX Notifications"]
 end
+
 Notification.Name = "PrisonLifeX Notifications"
 Notification.Parent = game:GetService("CoreGui")
 Notifications.Name = "Notifications"
@@ -1497,6 +1533,7 @@ AutoRespawn = false
 AutoItems = false
 KnifeAura = false
 AntiBring = false
+AntiFling = false
 
 rejoin.MouseButton1Click:Connect(function()
 	game:GetService("TeleportService"):Teleport(game.PlaceId, plr)
@@ -1504,6 +1541,32 @@ end)
 
 reset.MouseButton1Click:Connect(function()
 	respawn()
+end)
+
+afTrueFalse.MouseButton1Click:Connect(function()
+	AntiFling = not AntiFling
+
+	if AntiFling then
+		if type(AntiFlingEvent) == "userdata" then
+			AntiFlingEvent:Disconnect(); wait(0.2)
+		end
+		getgenv().AntiFlingEvent = game:GetService("RunService").Heartbeat:Connect(function()
+			pcall(function()
+				plr.Character.HumanoidRootPart.Velocity = Vector3.new(12, 0, 0)
+				plr.Character.HumanoidRootPart.RotVelocity = Vector3.new(0, 0, 0)
+			end)
+		end)
+		afTrueFalse:TweenPosition(UDim2.new(0.6, 0, -0.4, 0), "Out", "Quint", 0.2)
+		afOnOff.ImageColor3 = Color3.new(0, 1, 0)
+	end
+
+	if not AntiFling then
+		if type(AntiFlingEvent) == "userdata" then
+			AntiFlingEvent:Disconnect(); wait(0.2)
+		end
+		afTrueFalse:TweenPosition(UDim2.new(-0.1, 0, -0.4, 0), "In", "Quint", 0.2)
+		afOnOff.ImageColor3 = Color3.new(1, 0, 0)
+	end
 end)
 
 truefalse_2.MouseButton1Click:Connect(function()
