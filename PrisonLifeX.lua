@@ -1,3 +1,4 @@
+getgenv().CancelPLSXU = nil
 local Version = "v0.0.1"
 local nMSG = nil
 local pr, r = pcall(function() readfile("PrisonLifeXScriptVersion.txt") end)
