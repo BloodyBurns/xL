@@ -107,6 +107,15 @@ TextButton.MouseButton1Click:Connect(function()
 	if AutoRPS2 then 
 		AutoRPS2:Disconnect()
 	end
+		if AntiBLP then 
+		AntiBLP:Disconnect()
+	end
+			if AntiBLP2 then 
+		AntiBLP2:Disconnect()
+	end
+		if AntiBLP3 then 
+		AntiBLP3:Disconnect()
+	end
 	if AutoITMS then 
 		AutoITMS:Disconnect()
 	end
