@@ -87,6 +87,7 @@ TextButton_2.MouseButton1Click:Connect(function()
 	UpdateNotification.Enabled = true
 end)
 TextButton.MouseButton1Click:Connect(function()
+	UpdateNotification:Destroy()
 	getgenv().CancelPLSXU = false
 	AutoRespawn = false
 	AutoItems = false
