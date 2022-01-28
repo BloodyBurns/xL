@@ -3,6 +3,7 @@ local nMSG = nil
 local pr, r = pcall(function() readfile("PrisonLifeXScriptVersion.txt") end)
 if not pr then
 	writefile("PrisonLifeXScriptVersion.txt", Version)
+	getgenv().CancelPLSXU = false
 end
 
 if pr then
@@ -10,16 +11,19 @@ if pr then
 	if Versx ~= Version then
 		nMSG = "Updated Script to Version "..Version
 		loadstring(game:HttpGet('https://raw.githubusercontent.com/BloodyBurns/xL/main/UpdateNotifier.lua'))()
+	else
+		getgenv().CancelPLSXU = false
 	end
 end
-wait(5)
-repeat wait(1) until CancelPLSXU ~= nil
+
 if CancelPLSXU then
-	return 'Update Denied!'
+	return warn'Update Denied!'
 end
 
 writefile("PrisonLifeXScriptVersion.txt", Version)
-getgenv().ScriptData = {}
+if ScriptData == nil then
+	getgenv().ScriptData = {}
+end
 local PrisonLifeX = Instance.new("ScreenGui")
 local Main = Instance.new("ImageLabel")
 local holder = Instance.new("ImageLabel")
@@ -927,7 +931,8 @@ NLayout.SortOrder = Enum.SortOrder.LayoutOrder
 NLayout.VerticalAlignment = Enum.VerticalAlignment.Bottom
 NLayout.Padding = UDim.new(0, 5)
 
-ScriptData = {Notification, PrisonLifeX}
+table.insert(ScriptData, Notification)
+table.insert(ScriptData, PrisonLifeX)
 local Tabs = {Credit, Local, Items, Tps, Teams, Others, Misc}
 local Sliders = {dragger, dragger_2, dragger_3}
 local Items = {
