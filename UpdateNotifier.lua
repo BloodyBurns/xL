@@ -73,15 +73,22 @@ TextButton_3.TextColor3 = Color3.fromRGB(170, 0, 0)
 TextButton_3.TextScaled = true
 TextButton_3.TextWrapped = true
 TextButton_3.MouseButton1Click:Connect(function()
-	UpdateNotification:Destroy()
+		if game:GetService("CoreGui"):FindFirstChild("PrisonLifeX Notifications") then
 	NotifyX("Update has been cancelled", 5)
+
+end
+	UpdateNotification:Destroy()
 	getgenv().CancelPLSXU = true
 	wait(60)
 	getgenv().CancelPLSXU = false
 end)
 TextButton_2.MouseButton1Click:Connect(function()
 	getgenv().CancelPLSXU = false
-	NotifyX("Set reminder for 300 seconds!", 4)
+		if game:GetService("CoreGui"):FindFirstChild("PrisonLifeX Notifications") then
+		NotifyX("Set reminder for 300 seconds!", 4)
+
+
+end
 	UpdateNotification.Enabled = false
 	wait(300)
 	UpdateNotification.Enabled = true
