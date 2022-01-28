@@ -1,4 +1,3 @@
-getgenv().CancelPLSXU = nil
 local Version = "v0.0.1"
 local nMSG = nil
 local pr, r = pcall(function() readfile("PrisonLifeXScriptVersion.txt") end)
@@ -9,7 +8,6 @@ end
 if pr then
 	local Versx = readfile("PrisonLifeXScriptVersion.txt")
 	if Versx ~= Version then
-		writefile("PrisonLifeXScriptVersion.txt", Version)
 		nMSG = "Updated Script to Version "..Version
 		loadstring(game:HttpGet('https://raw.githubusercontent.com/BloodyBurns/xL/main/UpdateNotifier.lua'))()
 	end
@@ -20,6 +18,7 @@ if CancelPLSXU then
 	return 'Update Denied!'
 end
 
+writefile("PrisonLifeXScriptVersion.txt", Version)
 getgenv().ScriptData = {}
 local PrisonLifeX = Instance.new("ScreenGui")
 local Main = Instance.new("ImageLabel")
@@ -959,7 +958,7 @@ local AddTP = function(name, parent, cframe)
 	end)
 end
 
-local NotifyX = function(message, lenght)
+getgenv().NotifyX = function(message, lenght)
 	spawn(function()
 		local Noti = Instance.new("Frame")
 		local tb1 = Instance.new("TextLabel")
