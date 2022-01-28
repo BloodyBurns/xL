@@ -102,10 +102,11 @@ TextButton.MouseButton1Click:Connect(function()
 		AutoITMS:Disconnect()
 	end
 
-	if ScriptData and #ScriptData>0 then
-		for _, v in next, ScriptData do
-			v:Destroy()
+	for _, v in next,  game:GetService"CoreGui" do
+		if v.Name == "PrisonLifeX Notifications" or v.Name == "PrisonLifeX then
+			v:Destroy()		
 		end
 	end
 	loadstring(game:HttpGet('https://raw.githubusercontent.com/BloodyBurns/xL/main/PrisonLifeX.lua'))()
 end)
+repeat wait() until CancelPLSXU ~= nil
