@@ -906,7 +906,7 @@ NLayout.VerticalAlignment = Enum.VerticalAlignment.Bottom
 NLayout.Padding = UDim.new(0, 5)
 
 local Tabs = {Credit, Local, Items, Tps, Teams, Others, Misc}
-local Sliders = {dragger, dragger_2, dragger_3, dragger_4}
+local Sliders = {dragger, dragger_2, dragger_3}
 local Items = {
 	["Guns"] = {"AK-47", "M4A1", "M9", "Remington 870"},
 	["Other"] = {"Lunch", "Crude Knife", "Hammer", "Riot Shield"},
@@ -1032,8 +1032,6 @@ NotifyX("Loading Script...", 3)
 wait(3)
 NotifyX("Successfully Loaded Script!", 2)
 PrisonLifeX.Enabled = true
-
-wait(2)
 
 for _, v in next, Tabs do
 	v.MouseButton1Click:Connect(function()
