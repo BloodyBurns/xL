@@ -1,4 +1,4 @@
-local Version = "v0.0.4"
+local Version = "v0.0.9"
 local nMSG = nil
 local pr, r = pcall(function() readfile("PrisonLifeXScriptVersion.txt") end)
 if not pr then
@@ -1295,6 +1295,7 @@ spawn(function()
 		end
 	end
 end)
+
 for _, v in next, game:GetService("Players"):GetPlayers() do
 	if not table.find(exclusion, v.Name) then
 		AddButton(v.DisplayName, Unexcluded, function(a)
@@ -1368,6 +1369,12 @@ game:GetService("Players").PlayerRemoving:Connect(function(v)
 		end
 	end
 end)
+
+for _, v2 in next, Frames:GetChildren() do
+	v2.Visible = false
+end
+
+LocalFrame.Visible = true
 
 for _, v in next, Tabs do
 	v.MouseButton1Click:Connect(function()
