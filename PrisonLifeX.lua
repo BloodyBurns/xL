@@ -1212,7 +1212,8 @@ end)
 KnifeAura = false
 aTrueFalse.MouseButton1Click:Connect(function()
 	KnifeAura = not KnifeAura
-
+	aTrueFalse:TweenPosition(UDim2.new(0.6, 0, -0.4, 0), "Out", "Quint", 0.2)
+	aOnOff.ImageColor3 = Color3.new(0, 1, 0)
 	if KnifeAura then
 		while KnifeAura and wait() do
 			if not plr.Backpack:FindFirstChild("Crude Knife") then
@@ -1241,7 +1242,7 @@ aTrueFalse.MouseButton1Click:Connect(function()
 	end
 
 	if not KnifeAura then
-		truefalse:TweenPosition(UDim2.new(-0.1, 0, -0.4, 0), "In", "Quint", 0.2)
+		aTrueFalse:TweenPosition(UDim2.new(-0.1, 0, -0.4, 0), "In", "Quint", 0.2)
 		aOnOff.ImageColor3 = Color3.new(1, 0, 0)
 	end
 end)
