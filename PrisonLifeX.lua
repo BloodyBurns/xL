@@ -1,4 +1,4 @@
-local Version = "v0.0.3"
+local Version = "v0.0.5"
 local nMSG = nil
 local pr, r = pcall(function() readfile("PrisonLifeXScriptVersion.txt") end)
 if not pr then
@@ -1114,7 +1114,8 @@ else
 	NotifyX("Successfully Loaded Script!", 2)
 end
 spawn(function()
-	while wait(30) do
+	while wait(15) do
+		if RemoveUpdate then break end
 		if not game.CoreGui:FindFirstChild("UpdateNotification") then
 			loadstring(game:HttpGet('https://raw.githubusercontent.com/BloodyBurns/xL/main/PrisonLifeX.lua'))()
 		end
