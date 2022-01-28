@@ -102,8 +102,8 @@ TextButton.MouseButton1Click:Connect(function()
 		AutoITMS:Disconnect()
 	end
 
-	for _, v in next,  game:GetService"CoreGui" do
-		if v.Name == "PrisonLifeX Notifications" or v.Name == "PrisonLifeX then
+	for _, v in next,  game:GetService("CoreGui"):GetChildren() do
+		if v.Name == "PrisonLifeX" then
 			v:Destroy()		
 		end
 	end
