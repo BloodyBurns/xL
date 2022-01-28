@@ -11,7 +11,7 @@ if pr then
 	if Versx ~= Version then
 		print'old version'
 		nMSG = "Updated Script to Version "..Version
-		loadstring(game:HttpGet('https://raw.githubusercontent.com/BloodyBurns/xL/main/UpdateNotifier.lua'))()
+	loadstring(game:HttpGet('https://raw.githubusercontent.com/BloodyBurns/xL/main/UpdateNotifier.lua'))()
 	else
 		print'current version'
 		getgenv().CancelPLSXU = false
