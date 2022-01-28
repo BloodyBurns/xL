@@ -1,4 +1,4 @@
-local Version = "v0.1.1"
+local Version = "v0.1.5"
 local nMSG = nil
 local pr, r = pcall(function() readfile("PrisonLifeXScriptVersion.txt") end)
 if not pr then
@@ -1539,7 +1539,7 @@ aaTrueFalse.MouseButton1Click:Connect(function()
 			table.insert(CT, v)
 		end
 
-		getgenv().ANTIBLP2 = plr.Character.ChildAdded:Connect(function()
+		getgenv().AntiBLP2 = plr.Character.ChildAdded:Connect(function()
 			LastCF = plr.Character.HumanoidRootPart.CFrame
 		end)
 		aaTrueFalse:TweenPosition(UDim2.new(0.6, 0, -0.4, 0), "Out", "Quint", 0.2)
