@@ -1109,7 +1109,7 @@ NotifyX("Loading Script...", 3)
 wait(3)
 if game.PlaceId ~= 155615604 then
 	NotifyX("Wrong Game", 3) wait(2)
-	return plr:Kick("Prison Life X"
+	return plr:Kick("Prison Life X")
 end
 PrisonLifeX.Enabled = true
 if nMSG ~= nil then
