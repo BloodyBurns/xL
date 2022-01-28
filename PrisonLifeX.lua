@@ -1,4 +1,4 @@
-local Version = "v0.1.1"
+local Version = "v0.1.0"
 local nMSG = nil
 local pr, r = pcall(function() readfile("PrisonLifeXScriptVersion.txt") end)
 if not pr then
@@ -145,6 +145,9 @@ local plr = game:GetService("Players").LocalPlayer
 local Notification = Instance.new("ScreenGui")
 local Notifications = Instance.new("Frame")
 local NLayout = Instance.new("UIListLayout")
+local antibring = Instance.new("TextLabel")
+local aaOnOff = Instance.new("ImageLabel")
+local aaTrueFalse = Instance.new("ImageButton")
 
 PrisonLifeX.Name = "PrisonLifeX"
 PrisonLifeX.Parent = game:GetService("CoreGui")
@@ -1080,6 +1083,38 @@ ServerIcon.Image = "rbxassetid://4832957972"
 ServerIcon.MouseButton1Click:Connect(function()
 	setclipboard("https://discord.gg/jPj7BHeU7s")
 end)
+antibring.Name = "antibring"
+antibring.Parent = LocalFrame
+antibring.BackgroundColor3 = Color3.fromRGB(33, 33, 33)
+antibring.BackgroundTransparency = 1.000
+antibring.BorderSizePixel = 0
+antibring.Position = UDim2.new(0.0129151288, 0, 0.74181819, 0)
+antibring.Size = UDim2.new(0, 89, 0, 26)
+antibring.Font = Enum.Font.PatrickHand
+antibring.Text = "Anti-Bring"
+antibring.TextColor3 = Color3.fromRGB(255, 255, 255)
+antibring.TextScaled = true
+antibring.TextSize = 14.000
+antibring.TextWrapped = true
+antibring.TextXAlignment = Enum.TextXAlignment.Left
+aaOnOff.Name = "aaOnOff"
+aaOnOff.Parent = antibring
+aaOnOff.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+aaOnOff.BackgroundTransparency = 1.000
+aaOnOff.Position = UDim2.new(1.1362288, 0, 0.192307696, 0)
+aaOnOff.Size = UDim2.new(0, 50, 0, 15)
+aaOnOff.Image = "rbxassetid://3570695787"
+aaOnOff.ImageColor3 = Color3.fromRGB(143, 0, 2)
+aaOnOff.ScaleType = Enum.ScaleType.Slice
+aaOnOff.SliceCenter = Rect.new(100, 100, 100, 100)
+aaOnOff.SliceScale = 0.080
+aaTrueFalse.Name = "aaTrueFalse"
+aaTrueFalse.Parent = aaOnOff
+aaTrueFalse.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+aaTrueFalse.BackgroundTransparency = 1.000
+aaTrueFalse.Position = UDim2.new(-0.0210525505, 0, -0.400000006, 0)
+aaTrueFalse.Size = UDim2.new(0, 25, 0, 25)
+aaTrueFalse.Image = "rbxassetid://264754931"
 aura.Name = "aura"
 aura.Parent = LocalFrame
 aura.BackgroundColor3 = Color3.fromRGB(33, 33, 33)
@@ -1132,6 +1167,8 @@ NLayout.SortOrder = Enum.SortOrder.LayoutOrder
 NLayout.VerticalAlignment = Enum.VerticalAlignment.Bottom
 NLayout.Padding = UDim.new(0, 5)
 
+local LastCF
+local CT = {}
 local Tabs = {Credit, Local, Items, Tps, Teams, Others, Misc}
 local Sliders = {dragger, dragger_2, dragger_3}
 local Items = {
@@ -1408,6 +1445,7 @@ end
 AutoRespawn = false
 AutoItems = false
 KnifeAura = false
+AntiBring = false
 
 rejoin.MouseButton1Click:Connect(function()
 	game:GetService("TeleportService"):Teleport(game.PlaceId, plr)
@@ -1440,7 +1478,6 @@ truefalse_2.MouseButton1Click:Connect(function()
 	end
 end)
 
-
 truefalse.MouseButton1Click:Connect(function()
 	AutoItems = not AutoItems
 
@@ -1466,6 +1503,59 @@ truefalse.MouseButton1Click:Connect(function()
 		respawn()
 	end
 end)
+
+game:GetService("RunService").Stepped:Connect(function()
+	for _, v in next, plr.Character:GetChildren() do
+		if v:IsA("Tool") and not table.find(CT, v) then
+			v.Parent = plr.Backpack
+			table.insert(CT, v)
+			spawn(function()
+				for i = 1, 20 do
+					plr.Character.HumanoidRootPart.Velocity = Vector3.new(0, 0, 0)
+					plr.Character.HumanoidRootPart.CFrame = LastCF
+					task.wait()
+				end
+			end)
+		end
+	end
+end)
+aaTrueFalse.MouseButton1Click:Connect(function()
+	AntiBring = not AntiBring
+
+	if AntiBring then
+		getgenv().AntiBLP = plr.CharacterAdded:Connect(function()
+			getgenv().AntiBLP3 = plr.Character.ChildAdded:Connect(function()
+				LastCF = plr.Character.HumanoidRootPart.CFrame
+			end)
+			for _, v in next, plr.Backpack:GetChildren() do
+				table.insert(CT, v)
+			end
+		end)
+
+
+		LastCF = plr.Character.HumanoidRootPart.CFrame
+		plr.Character.Humanoid:UnequipTools()
+		for _, v in next, plr.Backpack:GetChildren() do
+			table.insert(CT, v)
+		end
+
+		getgenv().ANTIBLP2 = plr.Character.ChildAdded:Connect(function()
+			LastCF = plr.Character.HumanoidRootPart.CFrame
+		end)
+		aaTrueFalse:TweenPosition(UDim2.new(0.6, 0, -0.4, 0), "Out", "Quint", 0.2)
+		aaOnOff.ImageColor3 = Color3.new(0, 1, 0)
+	end
+
+	if not AntiBring then
+		AntiBLP:Disconnect()
+		AntiBLP2:Disconnect()
+		AntiBLP3:Disconnect()
+		aaTrueFalse:TweenPosition(UDim2.new(-0.1, 0, -0.4, 0), "In", "Quint", 0.2)
+		aaOnOff.ImageColor3 = Color3.new(1, 0, 0)
+		respawn()
+	end
+end)
+
 aTrueFalse.MouseButton1Click:Connect(function()
 	KnifeAura = not KnifeAura
 
