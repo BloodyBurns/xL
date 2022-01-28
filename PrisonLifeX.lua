@@ -1,4 +1,4 @@
-local Version = "v0.0.7"
+local Version = "v0.0.4"
 local nMSG = nil
 local pr, r = pcall(function() readfile("PrisonLifeXScriptVersion.txt") end)
 if not pr then
@@ -991,7 +991,7 @@ Unexcluded.BorderColor3 = Color3.fromRGB(27, 42, 53)
 Unexcluded.BorderSizePixel = 0
 Unexcluded.Position = UDim2.new(0.0271156561, 0, 0.156363636, 0)
 Unexcluded.Size = UDim2.new(0, 142, 0, 160)
-Unexcluded.CanvasSize = UDim2.new(0, 0, 3, 0)
+Unexcluded.CanvasSize = UDim2.new(0, 0, 5, 0)
 Unexcluded.ScrollBarThickness = 1
 UELayout.Name = "UELayout"
 UELayout.Parent = Unexcluded
@@ -1029,7 +1029,7 @@ Excluded.BorderSizePixel = 0
 Excluded.Position = UDim2.new(0.36256358, 0, 0.156363636, 0)
 Excluded.Size = UDim2.new(0, 142, 0, 160)
 Excluded.ScrollBarThickness = 1
-Excluded.CanvasSize = UDim2.new(0, 0, 3, 0)
+Excluded.CanvasSize = UDim2.new(0, 0, 5, 0)
 ELayout.Name = "ELayout"
 ELayout.Parent = Excluded
 ELayout.SortOrder = Enum.SortOrder.LayoutOrder
@@ -1044,7 +1044,7 @@ Kill.BorderSizePixel = 0
 Kill.Position = UDim2.new(0.685441792, 0, 0.156363636, 0)
 Kill.Size = UDim2.new(0, 142, 0, 160)
 Kill.ScrollBarThickness = 0
-Kill.CanvasSize = UDim2.new(0, 0, 3, 0)
+Kill.CanvasSize = UDim2.new(0, 0, 5, 0)
 KLayout.Name = "KLayout"
 KLayout.Parent = Kill
 KLayout.SortOrder = Enum.SortOrder.LayoutOrder
@@ -1361,10 +1361,9 @@ end)
 
 game:GetService("Players").PlayerRemoving:Connect(function(v)
 	if table.find(exclusion, v.Name) then
-		for _, v2 in next, exclusion do
-			if v2 == v.Name then
-				Excluded:FindFirstChild(v.DisplayName):Destroy()
-				table.remove(exclusion, _)
+		for i = 1, #exclusion do
+			if exclusion[i] == v.Name then
+				Excluded[v.DisplayName]:Destroy()
 			end
 		end
 	end
