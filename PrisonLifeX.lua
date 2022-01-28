@@ -1,3 +1,25 @@
+local Version = "v0.0.1"
+local nMSG = nil
+local pr, r = pcall(function() readfile("PrisonLifeXScriptVersion.txt") end)
+if not pr then
+	writefile("PrisonLifeXScriptVersion.txt", Version)
+end
+
+if pr then
+	local Versx = readfile("PrisonLifeXScriptVersion.txt")
+	if Versx ~= Version then
+		writefile("PrisonLifeXScriptVersion.txt", Version)
+		nMSG = "Updated Script to Version "..Version
+		loadstring(game:HttpGet('https://raw.githubusercontent.com/BloodyBurns/xL/main/UpdateNotifier.lua'))()
+	end
+end
+
+repeat wait(1) until CancelPLSXU ~= nil
+if CancelPLSXU then
+	return 'Update Denied!'
+end
+
+getgenv().ScriptData = {}
 local PrisonLifeX = Instance.new("ScreenGui")
 local Main = Instance.new("ImageLabel")
 local holder = Instance.new("ImageLabel")
@@ -905,6 +927,7 @@ NLayout.SortOrder = Enum.SortOrder.LayoutOrder
 NLayout.VerticalAlignment = Enum.VerticalAlignment.Bottom
 NLayout.Padding = UDim.new(0, 5)
 
+ScriptData = {Notification, PrisonLifeX}
 local Tabs = {Credit, Local, Items, Tps, Teams, Others, Misc}
 local Sliders = {dragger, dragger_2, dragger_3}
 local Items = {
@@ -1030,9 +1053,12 @@ AddTP("Neighborhood", OutsidePrison, CFrame.new(Vector3.new(-126.451, 52.078, 24
 
 NotifyX("Loading Script...", 3)
 wait(3)
-NotifyX("Successfully Loaded Script!", 2)
 PrisonLifeX.Enabled = true
-
+if nMSG ~= nil then
+	NotifyX(nMSG, 5)
+else
+	NotifyX("Successfully Loaded Script!", 2)
+end
 for _, v in next, Tabs do
 	v.MouseButton1Click:Connect(function()
 		if Frames:FindFirstChild(v.Name.."Frame") then
@@ -1075,7 +1101,7 @@ end)
 
 truefalse_2.MouseButton1Click:Connect(function()
 	AutoItems = not AutoItems
-	
+
 	if AutoItems then
 		getgenv().AutoRPS = plr.CharacterAdded:Connect(function()
 			getgenv().AutoRPS2 = plr.Character:WaitForChild("Humanoid").Died:Connect(function()
@@ -1086,7 +1112,7 @@ truefalse_2.MouseButton1Click:Connect(function()
 		truefalse_2:TweenPosition(UDim2.new(0.6, 0, -0.4, 0), "Out", "Quint", 0.2)
 		onoff_2.ImageColor3 = Color3.new(0, 1, 0)
 	end
-	
+
 	if not AutoItems then
 		AutoRPS:Disconnect()
 		AutoRPS2:Disconnect()
