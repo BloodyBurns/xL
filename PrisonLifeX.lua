@@ -1069,7 +1069,7 @@ else
 	NotifyX("Successfully Loaded Script!", 2)
 end
 spawn(function()
-	while PrisonLifeX and wait(30) do
+	while wait(30) do
 		if not game.CoreGui:FindFirstChild("UpdateNotification") then
 		loadstring(game:HttpGet('https://raw.githubusercontent.com/BloodyBurns/xL/main/PrisonLifeX.lua'))()
 				end
