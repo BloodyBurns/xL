@@ -1,4 +1,4 @@
-local Version = "v0.1.2"
+local Version = "v0.1.3"
 local nMSG = nil
 local pr, r = pcall(function() readfile("PrisonLifeXScriptVersion.txt") end)
 if not pr then
@@ -519,7 +519,7 @@ reset.Name = "reset"
 reset.Parent = LocalFrame
 reset.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 reset.BackgroundTransparency = 1.000
-reset.Position = UDim2.new(0.00369004253, 0, 0.894545436, 0)
+reset.Position = UDim2.new(0.074, 0, 0.895, 0)
 reset.Size = UDim2.new(0, 68, 0, 22)
 reset.Font = Enum.Font.Cartoon
 reset.Text = "Reset"
@@ -637,7 +637,7 @@ serverhop.Name = "serverhop"
 serverhop.Parent = LocalFrame
 serverhop.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 serverhop.BackgroundTransparency = 1.000
-serverhop.Position = UDim2.new(0.24538745, 0, 0.894545436, 0)
+serverhop.Position = UDim2.new(0.756, 0, 0.895, 0)
 serverhop.Size = UDim2.new(0, 90, 0, 22)
 serverhop.Font = Enum.Font.Cartoon
 serverhop.Text = "Server Hop"
@@ -645,13 +645,26 @@ serverhop.TextColor3 = Color3.fromRGB(255, 255, 255)
 serverhop.TextScaled = true
 serverhop.TextSize = 14.000
 serverhop.TextWrapped = true
+serverhop.MouseButton1Click:Connect(function()
+	local x = {}
+	local a1 = "https://games.roblox.com/v1/games/"
+	local a2 = "/servers/Public?sortOrder=Asc&limit=100"
 
+	for _, v in ipairs( game:GetService("HttpService"):JSONDecode(game:HttpGetAsync(a1 .. game.PlaceId .. a2)).data) do
+		if type(v) == "table" and (v.maxPlayers > v.playing) and v.id ~= game.JobId then
+			x[#x + 1] = v.id
+		end
+	end
+	if #x > 0 then
+		game:GetService("TeleportService"):TeleportToPlaceInstance(game.PlaceId, x[math.random(1, #x)])
+	end
+end)
 autorespawn_2.Name = "autorespawn"
 autorespawn_2.Parent = LocalFrame
 autorespawn_2.BackgroundColor3 = Color3.fromRGB(33, 33, 33)
 autorespawn_2.BackgroundTransparency = 1.000
 autorespawn_2.BorderSizePixel = 0
-autorespawn_2.Position = UDim2.new(0.0129151288, 0, 0.50545454, 0)
+autorespawn_2.Position = UDim2.new(0.592, 0, 0.076, 0)
 autorespawn_2.Size = UDim2.new(0, 89, 0, 26)
 autorespawn_2.Font = Enum.Font.PatrickHand
 autorespawn_2.Text = "Auto Respawn"
@@ -684,7 +697,7 @@ rejoin.Name = "rejoin"
 rejoin.Parent = LocalFrame
 rejoin.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 rejoin.BackgroundTransparency = 1.000
-rejoin.Position = UDim2.new(0.119926199, 0, 0.894545436, 0)
+rejoin.Position = UDim2.new(0.437, 0, 0.895, 0)
 rejoin.Size = UDim2.new(0, 68, 0, 22)
 rejoin.Font = Enum.Font.Cartoon
 rejoin.Text = "Rejoin"
@@ -1088,7 +1101,7 @@ antibring.Parent = LocalFrame
 antibring.BackgroundColor3 = Color3.fromRGB(33, 33, 33)
 antibring.BackgroundTransparency = 1.000
 antibring.BorderSizePixel = 0
-antibring.Position = UDim2.new(0.0129151288, 0, 0.74181819, 0)
+antibring.Position = UDim2.new(0.592, 0, 0.309, 0)
 antibring.Size = UDim2.new(0, 89, 0, 26)
 antibring.Font = Enum.Font.PatrickHand
 antibring.Text = "Anti-Bring"
@@ -1120,7 +1133,7 @@ aura.Parent = LocalFrame
 aura.BackgroundColor3 = Color3.fromRGB(33, 33, 33)
 aura.BackgroundTransparency = 1.000
 aura.BorderSizePixel = 0
-aura.Position = UDim2.new(0.0129151288, 0, 0.621818185, 0)
+aura.Position = UDim2.new(0.616, 0, 0.189, 0)
 aura.Size = UDim2.new(0, 89, 0, 26)
 aura.Font = Enum.Font.PatrickHand
 aura.LineHeight = 1.060
@@ -1364,6 +1377,44 @@ for _, v in next, game:GetService("Players"):GetPlayers() do
 		end)
 	end
 end
+
+Unexcluded.ChildAdded:Connect(function()
+	for _, v in next, Unexcluded:GetChildren() do
+		if not v:IsA("UIListLayout") then
+			v:Destroy()
+		end
+	end
+	for _, v in next, game:GetService("Players"):GetPlayers() do
+		if not table.find(exclusion, v.Name) then
+			AddButton(v.DisplayName, Unexcluded, function(a)
+				local CurrentTeam = plr.TeamColor.Color
+				local SetPoint = plr.Character.HumanoidRootPart.CFrame
+
+				workspace.Remote.ItemHandler:InvokeServer(workspace.Prison_ITEMS.giver["Remington 870"].ITEMPICKUP)
+				workspace.Remote.TeamEvent:FireServer("Medium stone grey")
+				if not plr.Backpack:FindFirstChild("Remington 870") then
+					return 'Missing Shotgun'
+				end
+
+				for _, v in next, Player(Args[1]) do
+					if not table.find(exclusion, v.Name) then
+						if v.Character and v.Character.Humanoid.Health>0 then
+							game:GetService("ReplicatedStorage").ShootEvent:FireServer({
+								[1] = {["RayObject"] = Ray.new(Vector3.new(0, 0, 0)), ["Distance"] = 2, ["CFrame"] = CFrame.new(0, 0, 0), ["Hit"] = v.Character.Head},
+								[2] = {["RayObject"] = Ray.new(Vector3.new(0, 0, 0)), ["Distance"] = 2, ["CFrame"] = CFrame.new(0, 0, 0), ["Hit"] = v.Character.Head},
+								[3] = {["RayObject"] = Ray.new(Vector3.new(0, 0, 0)), ["Distance"] = 2, ["CFrame"] = CFrame.new(0, 0, 0), ["Hit"] = v.Character.Head},
+								[4] = {["RayObject"] = Ray.new(Vector3.new(0, 0, 0)), ["Distance"] = 2, ["CFrame"] = CFrame.new(0, 0, 0), ["Hit"] = v.Character.Head},
+								[5] = {["RayObject"] = Ray.new(Vector3.new(0, 0, 0)), ["Distance"] = 2, ["CFrame"] = CFrame.new(0, 0, 0), ["Hit"] = v.Character.Head}},
+							plr.Backpack["Remington 870"])
+						end
+					end
+				end
+				workspace.Remote.loadchar:InvokeServer(plr, CurrentTeam)
+				plr.Character:WaitForChild("HumanoidRootPart").CFrame = SetPoint
+			end)
+		end
+	end
+end)
 
 game:GetService("Players").PlayerAdded:Connect(function(v)
 	if not table.find(exclusion, v.Name) then
