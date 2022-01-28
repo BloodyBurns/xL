@@ -1,4 +1,4 @@
-local Version = "v0.0.2"
+local Version = "v0.0.4"
 local nMSG = nil
 local pr, r = pcall(function() readfile("PrisonLifeXScriptVersion.txt") end)
 if not pr then
@@ -11,19 +11,23 @@ if pr then
 	if Versx ~= Version then
 		print'old version'
 		nMSG = "Updated Script to Version "..Version
-	loadstring(game:HttpGet('https://raw.githubusercontent.com/BloodyBurns/xL/main/UpdateNotifier.lua'))()
+		loadstring(game:HttpGet('https://raw.githubusercontent.com/BloodyBurns/xL/main/UpdateNotifier.lua'))()
 	else
 		print'current version'
 		getgenv().CancelPLSXU = false
 	end
 end
-
+if RemoveUpdate then
+	writefile("PrisonLifeXScriptVersion.txt", Version)
+	return
+end
 if CancelPLSXU then
 	return warn'Update Denied!'
 end
 if game.CoreGui:FindFirstChild("PrisonLifeX") then
 	return 'void'	
 end
+
 writefile("PrisonLifeXScriptVersion.txt", Version)
 local PrisonLifeX = Instance.new("ScreenGui")
 local Main = Instance.new("ImageLabel")
@@ -119,6 +123,9 @@ local Teams = Instance.new("TextButton")
 local Others = Instance.new("TextButton")
 local Misc = Instance.new("TextButton")
 local Credit = Instance.new("TextButton")
+local aura = Instance.new("TextLabel")
+local aOnOff = Instance.new("ImageLabel")
+local aTrueFalse = Instance.new("ImageButton")
 local plr = game:GetService("Players").LocalPlayer
 local Notification = Instance.new("ScreenGui")
 local Notifications = Instance.new("Frame")
@@ -917,6 +924,39 @@ Credit.Text = "Credit"
 Credit.TextColor3 = Color3.fromRGB(255, 255, 255)
 Credit.TextScaled = true
 Credit.TextWrapped = true
+aura.Name = "aura"
+aura.Parent = game.StarterGui.PrisonLifeX.Main.Frames.LocalFrame
+aura.BackgroundColor3 = Color3.fromRGB(33, 33, 33)
+aura.BackgroundTransparency = 1.000
+aura.BorderSizePixel = 0
+aura.Position = UDim2.new(0.0129151288, 0, 0.621818185, 0)
+aura.Size = UDim2.new(0, 89, 0, 26)
+aura.Font = Enum.Font.PatrickHand
+aura.LineHeight = 1.060
+aura.Text = " Aura"
+aura.TextColor3 = Color3.fromRGB(255, 255, 255)
+aura.TextScaled = true
+aura.TextSize = 14.000
+aura.TextWrapped = true
+aura.TextXAlignment = Enum.TextXAlignment.Left
+aOnOff.Name = "aOnOff"
+aOnOff.Parent = aura
+aOnOff.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+aOnOff.BackgroundTransparency = 1.000
+aOnOff.Position = UDim2.new(1.1362288, 0, 0.192307696, 0)
+aOnOff.Size = UDim2.new(0, 50, 0, 15)
+aOnOff.Image = "rbxassetid://3570695787"
+aOnOff.ImageColor3 = Color3.fromRGB(143, 0, 2)
+aOnOff.ScaleType = Enum.ScaleType.Slice
+aOnOff.SliceCenter = Rect.new(100, 100, 100, 100)
+aOnOff.SliceScale = 0.080
+aTrueFalse.Name = "aTrueFalse"
+aTrueFalse.Parent = aOnOff
+aTrueFalse.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+aTrueFalse.BackgroundTransparency = 1.000
+aTrueFalse.Position = UDim2.new(-0.0210525505, 0, -0.400000006, 0)
+aTrueFalse.Size = UDim2.new(0, 25, 0, 25)
+aTrueFalse.Image = "rbxassetid://264754931"
 if game:GetService("CoreGui"):FindFirstChild("PrisonLifeX Notifications") then
 	Notification:Destroy()
 	Notification = game:GetService("CoreGui")["PrisonLifeX Notifications"]
@@ -966,6 +1006,11 @@ local AddTP = function(name, parent, cframe)
 	end)
 end
 
+if exclusion == nil then
+	getgenv().exclusion = {}
+	table.insert(exclusion, plr.Name)
+end
+
 getgenv().NotifyX = function(message, lenght)
 	spawn(function()
 		local Noti = Instance.new("Frame")
@@ -975,7 +1020,7 @@ getgenv().NotifyX = function(message, lenght)
 		local close = Instance.new("TextButton")
 		local Tween = game:GetService("TweenService"):Create(Timer, TweenInfo.new(lenght), {Position = UDim2.new(1, 0, 0.991, 0)})
 		if #message >= 20 then
-				tb2.TextScaled = true end
+			tb2.TextScaled = true end
 		Noti.Name = "Noti"
 		Noti.Parent = Notifications
 		Noti.BackgroundColor3 = Color3.fromRGB(36, 36, 36)
@@ -1071,8 +1116,8 @@ end
 spawn(function()
 	while wait(30) do
 		if not game.CoreGui:FindFirstChild("UpdateNotification") then
-		loadstring(game:HttpGet('https://raw.githubusercontent.com/BloodyBurns/xL/main/PrisonLifeX.lua'))()
-				end
+			loadstring(game:HttpGet('https://raw.githubusercontent.com/BloodyBurns/xL/main/PrisonLifeX.lua'))()
+		end
 	end
 end)
 for _, v in next, Tabs do
@@ -1138,6 +1183,7 @@ truefalse_2.MouseButton1Click:Connect(function()
 	end
 end)
 
+
 truefalse.MouseButton1Click:Connect(function()
 	AutoItems = not AutoItems
 
@@ -1161,6 +1207,42 @@ truefalse.MouseButton1Click:Connect(function()
 		truefalse:TweenPosition(UDim2.new(-0.1, 0, -0.4, 0), "In", "Quint", 0.2)
 		onoff.ImageColor3 = Color3.new(1, 0, 0)
 		respawn()
+	end
+end)
+KnifeAura = false
+aTrueFalse.MouseButton1Click:Connect(function()
+	KnifeAura = not KnifeAura
+
+	if KnifeAura then
+		while KnifeAura and wait() do
+			if not plr.Backpack:FindFirstChild("Crude Knife") then
+				repeat wait()
+					workspace.Remote.ItemHandler:InvokeServer(workspace["Prison_ITEMS"].single["Crude Knife"].ITEMPICKUP)
+				until plr.Backpack:FindFirstChild("Crude Knife") or KnifeAura == false
+			end
+			for _, v in pairs(game:GetService("Players"):GetPlayers()) do
+				if not table.find(exclusion, v.Name) then
+					if v.Character and v.Character:FindFirstChild("Humanoid") and v.Character.Humanoid.Health>0 then
+						pcall(function()
+							if plr:DistanceFromCharacter(v.Character.HumanoidRootPart.Position) <= 13 then
+								spawn(function()
+									for i = 1, 10 do
+										pcall(function()
+											game:GetService("ReplicatedStorage").meleeEvent:FireServer(v, plr.Backpack["Crude Knife"])
+										end)
+									end
+								end)
+							end
+						end)
+					end
+				end
+			end
+		end
+	end
+
+	if not KnifeAura then
+		truefalse:TweenPosition(UDim2.new(-0.1, 0, -0.4, 0), "In", "Quint", 0.2)
+		aOnOff.ImageColor3 = Color3.new(1, 0, 0)
 	end
 end)
 
