@@ -917,6 +917,10 @@ Credit.Text = "Credit"
 Credit.TextColor3 = Color3.fromRGB(255, 255, 255)
 Credit.TextScaled = true
 Credit.TextWrapped = true
+if game:GetService("CoreGui"):FindFirstChild("PrisonLifeX Notifications") then
+	Notification:Destroy()
+	Notification = game:GetService("CoreGui")["PrisonLifeX Notifications"]
+end
 Notification.Name = "PrisonLifeX Notifications"
 Notification.Parent = game:GetService("CoreGui")
 Notifications.Name = "Notifications"
