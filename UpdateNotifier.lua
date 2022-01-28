@@ -73,6 +73,8 @@ TextButton_3.TextColor3 = Color3.fromRGB(170, 0, 0)
 TextButton_3.TextScaled = true
 TextButton_3.TextWrapped = true
 TextButton_3.MouseButton1Click:Connect(function()
+		getgenv().RemoveUpdate = true
+
 		if game:GetService("CoreGui"):FindFirstChild("PrisonLifeX Notifications") then
 	NotifyX("Update has been cancelled", 5)
 
