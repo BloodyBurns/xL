@@ -12,7 +12,7 @@ if pr then
 		loadstring(game:HttpGet('https://raw.githubusercontent.com/BloodyBurns/xL/main/UpdateNotifier.lua'))()
 	end
 end
-
+wait(5)
 repeat wait(1) until CancelPLSXU ~= nil
 if CancelPLSXU then
 	return 'Update Denied!'
