@@ -428,7 +428,7 @@ LocalFrame.BackgroundTransparency = 0.950
 LocalFrame.Position = UDim2.new(0.00995355006, 0, 0.0276816618, 0)
 LocalFrame.Size = UDim2.new(0, 542, 0, 275)
 
-speed.Name = "Speed"
+speed.Name = "WalkSpeed"
 speed.Parent = LocalFrame
 speed.BackgroundColor3 = Color3.fromRGB(33, 33, 33)
 speed.BackgroundTransparency = 1.000
@@ -461,6 +461,7 @@ dragger.BackgroundTransparency = 1.000
 dragger.Position = UDim2.new(-0.0210525505, 0, -0.400000006, 0)
 dragger.Size = UDim2.new(0, 25, 0, 25)
 dragger.Image = "rbxassetid://264754931"
+dragger.AnchorPoint = Vector2.new(0.5, 0.5)
 
 reset.Name = "reset"
 reset.Parent = LocalFrame
@@ -508,6 +509,7 @@ dragger_2.BackgroundTransparency = 1.000
 dragger_2.Position = UDim2.new(-0.0210525505, 0, -0.400000006, 0)
 dragger_2.Size = UDim2.new(0, 25, 0, 25)
 dragger_2.Image = "rbxassetid://264754931"
+dragger_2.AnchorPoint = Vector2.new(0.5, 0.5)
 
 gravity.Name = "Gravity"
 gravity.Parent = LocalFrame
@@ -542,6 +544,7 @@ dragger_3.BackgroundTransparency = 1.000
 dragger_3.Position = UDim2.new(-0.0210525505, 0, -0.400000006, 0)
 dragger_3.Size = UDim2.new(0, 25, 0, 25)
 dragger_3.Image = "rbxassetid://264754931"
+dragger_3.AnchorPoint = Vector2.new(0.5, 0.5)
 
 fov.Name = "FieldOfView"
 fov.Parent = LocalFrame
@@ -571,6 +574,7 @@ slider_4.SliceScale = 0.080
 
 dragger_4.Name = "dragger"
 dragger_4.Parent = slider_4
+dragger_4.AnchorPoint = Vector2.new(0.5, 0.5)
 dragger_4.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 dragger_4.BackgroundTransparency = 1.000
 dragger_4.Position = UDim2.new(-0.0210525505, 0, -0.400000006, 0)
@@ -902,7 +906,7 @@ NLayout.VerticalAlignment = Enum.VerticalAlignment.Bottom
 NLayout.Padding = UDim.new(0, 5)
 
 local Tabs = {Credit, Local, Items, Tps, Teams, Others, Misc}
-local Sliders = {dragger, dragger_2, dragger_3}
+local Sliders = {dragger, dragger_2, dragger_3, dragger_4}
 local Items = {
 	["Guns"] = {"AK-47", "M4A1", "M9", "Remington 870"},
 	["Other"] = {"Lunch", "Crude Knife", "Hammer", "Riot Shield"},
@@ -1121,29 +1125,32 @@ truefalse.MouseButton1Click:Connect(function()
 end)
 
 for _, v in next, Sliders do
-	local hDragging = false
+	local Dragging = false
 	v.MouseButton1Down:Connect(function()
-		hDragging = true
-		v.AnchoredPoint = Vector2.new(0.5, 0.5)
+		Dragging = true
 	end)
 
 	game:GetService("UserInputService").InputChanged:Connect(function()
-		if hDragging then
+		if Dragging then
+			local max = 300
 			local MousePos = game:GetService("UserInputService"):GetMouseLocation()+Vector2.new(0,36)
 			local RelPos = MousePos-v.Parent.AbsolutePosition
 			local Precent = math.clamp(RelPos.X/v.Parent.AbsoluteSize.X,0,1)
 			v.Position = UDim2.new(Precent,0,0.5,0)
-			v.Parent.Parent.Text = v.Parent.Parent.Text:split(" ")[1] .. " " .. tostring(Precent*120):split(".")[1]
-			pcall(function()
-				plr.Character.Humanoid[v.Parent.Parent.Name] = tonumber(tostring(Precent*120):split(".")[1])
-			end)
+			v.Parent.Parent.Text = v.Parent.Parent.Text:split(" ")[1] .. " " .. tostring(Precent*max):split(".")[1]
+			if v.Parent.Parent.Name == "Gravity" then
+				workspace.Gravity = tonumber(tostring(Precent*max):split(".")[1])
+			else
+				pcall(function()
+					plr.Character.Humanoid[v.Parent.Parent.Name] = tonumber(tostring(Precent*max):split(".")[1])
+				end)
+			end
 		end
 	end)
 
 	game:GetService("UserInputService").InputEnded:Connect(function(input)
 		if input.UserInputType == Enum.UserInputType.MouseButton1 then
-			hDragging = false
-			v.AnchoredPoint = Vector2.new(0, 0)
+			Dragging = false
 		end
 	end)
 end
@@ -1151,14 +1158,13 @@ end
 local fDragging = false
 dragger_4.MouseButton1Down:Connect(function()
 	fDragging = true
-	dragger_4.AnchoredPoint = Vector2.new(0.5, 0.5)
 end)
 
 game:GetService("UserInputService").InputChanged:Connect(function()
 	if fDragging then
 		local MousePos = game:GetService("UserInputService"):GetMouseLocation()+Vector2.new(0,36)
-		local RelPos = MousePos-slider.AbsolutePosition
-		local Precent = math.clamp(RelPos.X/slider.AbsoluteSize.X,0,1)
+		local RelPos = MousePos-slider_4.AbsolutePosition
+		local Precent = math.clamp(RelPos.X/slider_4.AbsoluteSize.X,0,1)
 		dragger_4.Position = UDim2.new(Precent,0,0.5,0)
 		fov.Text = fov.Text:split(" ")[1] .. " " .. tostring(Precent*120):split(".")[1]
 		workspace.CurrentCamera.FieldOfView = tonumber(tostring(Precent*120):split(".")[1])
@@ -1168,6 +1174,29 @@ end)
 game:GetService("UserInputService").InputEnded:Connect(function(input)
 	if input.UserInputType == Enum.UserInputType.MouseButton1 then
 		fDragging = false
-		dragger_4.AnchoredPoint = Vector2.new(0, 0)
 	end
+end)
+
+Criminal.MouseButton1Click:Connect(function()
+	local SetPoint = plr.Character.HumanoidRootPart.CFrame
+	workspace.Remote.loadchar:InvokeServer(plr, "Really red")
+	plr.Character:WaitForChild("HumanoidRootPart").CFrame = SetPoint
+end)
+
+Prisoner.MouseButton1Click:Connect(function()
+	local SetPoint = plr.Character.HumanoidRootPart.CFrame
+	workspace.Remote.loadchar:InvokeServer(plr, "Bright orange")
+	plr.Character:WaitForChild("HumanoidRootPart").CFrame = SetPoint
+end)
+
+Police.MouseButton1Click:Connect(function()
+	local SetPoint = plr.Character.HumanoidRootPart.CFrame
+	workspace.Remote.loadchar:InvokeServer(plr, "Bright blue")
+	plr.Character:WaitForChild("HumanoidRootPart").CFrame = SetPoint
+end)
+
+Neutral.MouseButton1Click:Connect(function()
+	local SetPoint = plr.Character.HumanoidRootPart.CFrame
+	workspace.Remote.loadchar:InvokeServer(plr, Color3.fromHSV(0, 0, 0))
+	plr.Character:WaitForChild("HumanoidRootPart").CFrame = SetPoint
 end)
