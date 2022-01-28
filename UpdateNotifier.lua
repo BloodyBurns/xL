@@ -1,4 +1,4 @@
-getgenv().CancelPLSXU = false
+getgenv().CancelPLSXU = nil
 local UpdateNotification = Instance.new("ScreenGui")
 local UpdateNoti = Instance.new("Frame")
 local tl = Instance.new("TextLabel")
