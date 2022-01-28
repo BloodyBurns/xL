@@ -974,7 +974,8 @@ getgenv().NotifyX = function(message, lenght)
 		local Timer = Instance.new("Frame")
 		local close = Instance.new("TextButton")
 		local Tween = game:GetService("TweenService"):Create(Timer, TweenInfo.new(lenght), {Position = UDim2.new(1, 0, 0.991, 0)})
-
+		if #message >= 20 then
+				tb2.TextScaled = true
 		Noti.Name = "Noti"
 		Noti.Parent = Notifications
 		Noti.BackgroundColor3 = Color3.fromRGB(36, 36, 36)
