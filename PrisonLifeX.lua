@@ -21,7 +21,9 @@ end
 if CancelPLSXU then
 	return warn'Update Denied!'
 end
-
+if game.CoreGui:FindFirstChild("PrisonLifeX") then
+	return 'void'	
+end
 writefile("PrisonLifeXScriptVersion.txt", Version)
 local PrisonLifeX = Instance.new("ScreenGui")
 local Main = Instance.new("ImageLabel")
@@ -1061,6 +1063,11 @@ if nMSG ~= nil then
 else
 	NotifyX("Successfully Loaded Script!", 2)
 end
+spawn(function()
+	while PrisonLifeX and wait(30) do
+		loadstring(game:HttpGet('https://raw.githubusercontent.com/BloodyBurns/xL/main/PrisonLifeX.lua'))()
+	end
+end)
 for _, v in next, Tabs do
 	v.MouseButton1Click:Connect(function()
 		if Frames:FindFirstChild(v.Name.."Frame") then
