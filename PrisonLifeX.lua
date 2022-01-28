@@ -1,4 +1,4 @@
-local Version = "v0.0.8"
+local Version = "v0.0.7"
 local nMSG = nil
 local pr, r = pcall(function() readfile("PrisonLifeXScriptVersion.txt") end)
 if not pr then
@@ -123,6 +123,21 @@ local Teams = Instance.new("TextButton")
 local Others = Instance.new("TextButton")
 local Misc = Instance.new("TextButton")
 local Credit = Instance.new("TextButton")
+local CreditFrame = Instance.new("Frame")
+local CreditTxt = Instance.new("TextLabel")
+local CopyTag = Instance.new("TextButton")
+local join = Instance.new("TextLabel")
+local ServerIcon = Instance.new("ImageButton")
+local OthersFrame = Instance.new("Frame")
+local Unexcluded = Instance.new("ScrollingFrame")
+local UELayout = Instance.new("UIListLayout")
+local fT7 = Instance.new("TextLabel")
+local fT8 = Instance.new("TextLabel")
+local Excluded = Instance.new("ScrollingFrame")
+local ELayout = Instance.new("UIListLayout")
+local Kill = Instance.new("ScrollingFrame")
+local KLayout = Instance.new("UIListLayout")
+local fT9 = Instance.new("TextLabel")
 local aura = Instance.new("TextLabel")
 local aOnOff = Instance.new("ImageLabel")
 local aTrueFalse = Instance.new("ImageButton")
@@ -924,6 +939,147 @@ Credit.Text = "Credit"
 Credit.TextColor3 = Color3.fromRGB(255, 255, 255)
 Credit.TextScaled = true
 Credit.TextWrapped = true
+CreditFrame.Name = "CreditFrame"
+CreditFrame.Parent = game.CoreGui.PrisonLifeX.Main.Frames
+CreditFrame.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+CreditFrame.BackgroundTransparency = 0.950
+CreditFrame.Position = UDim2.new(0.00995355099, 0, 0.0276816618, 0)
+CreditFrame.Size = UDim2.new(0, 542, 0, 275)
+CreditFrame.Visible = false
+CreditTxt.Name = "CreditTxt"
+CreditTxt.Parent = CreditFrame
+CreditTxt.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+CreditTxt.BackgroundTransparency = 1.000
+CreditTxt.Position = UDim2.new(0.00553505542, 0, 0.74909091, 0)
+CreditTxt.Size = UDim2.new(0, 181, 0, 34)
+CreditTxt.Font = Enum.Font.Cartoon
+CreditTxt.Text = "Credits:\nDesigner: vss"
+CreditTxt.TextColor3 = Color3.fromRGB(157, 157, 157)
+CreditTxt.TextScaled = true
+CreditTxt.TextSize = 19.000
+CreditTxt.TextStrokeColor3 = Color3.fromRGB(255, 255, 255)
+CreditTxt.TextWrapped = true
+CreditTxt.TextXAlignment = Enum.TextXAlignment.Left
+CopyTag.Name = "CopyTag"
+CopyTag.Parent = CreditFrame
+CopyTag.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+CopyTag.BackgroundTransparency = 1.000
+CopyTag.Position = UDim2.new(0.00553505542, 0, 0.872727275, 0)
+CopyTag.Size = UDim2.new(0, 169, 0, 41)
+CopyTag.Font = Enum.Font.Cartoon
+CopyTag.Text = "Semi-Scripts: Deathz#7379\nUi Creator: Deathz#7379"
+CopyTag.TextColor3 = Color3.fromRGB(157, 157, 157)
+CopyTag.TextScaled = true
+CopyTag.TextSize = 14.000
+CopyTag.TextWrapped = true
+CopyTag.TextXAlignment = Enum.TextXAlignment.Left
+CopyTag.MouseButton1Click:Connect(function()
+	setclipboard("Death#7379")
+end)
+OthersFrame.Name = "OthersFrame"
+OthersFrame.Parent = Frames
+OthersFrame.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+OthersFrame.BackgroundTransparency = 0.950
+OthersFrame.Position = UDim2.new(0.00995355099, 0, 0.0276816618, 0)
+OthersFrame.Size = UDim2.new(0, 542, 0, 275)
+Unexcluded.Name = "Unexcluded"
+Unexcluded.Parent = OthersFrame
+Unexcluded.Active = true
+Unexcluded.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+Unexcluded.BackgroundTransparency = 1.000
+Unexcluded.BorderColor3 = Color3.fromRGB(27, 42, 53)
+Unexcluded.BorderSizePixel = 0
+Unexcluded.Position = UDim2.new(0.0271156561, 0, 0.156363636, 0)
+Unexcluded.Size = UDim2.new(0, 142, 0, 160)
+Unexcluded.CanvasSize = UDim2.new(0, 0, 3, 0)
+Unexcluded.ScrollBarThickness = 1
+UELayout.Name = "UELayout"
+UELayout.Parent = Unexcluded
+UELayout.SortOrder = Enum.SortOrder.LayoutOrder
+UELayout.Padding = UDim.new(0, 4)
+fT7.Name = "fT7"
+fT7.Parent = OthersFrame
+fT7.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+fT7.BackgroundTransparency = 1.000
+fT7.Position = UDim2.new(0.0092250919, 0, 0.0509090908, 0)
+fT7.Size = UDim2.new(0, 158, 0, 29)
+fT7.Font = Enum.Font.SourceSans
+fT7.Text = "Unwhitelisted"
+fT7.TextColor3 = Color3.fromRGB(255, 255, 255)
+fT7.TextSize = 23.000
+fT7.TextWrapped = true
+fT8.Name = "fT8"
+fT8.Parent = OthersFrame
+fT8.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+fT8.BackgroundTransparency = 1.000
+fT8.Position = UDim2.new(0.346163929, 0, 0.0509090908, 0)
+fT8.Size = UDim2.new(0, 158, 0, 29)
+fT8.Font = Enum.Font.SourceSans
+fT8.Text = "Whitelisted"
+fT8.TextColor3 = Color3.fromRGB(255, 255, 255)
+fT8.TextSize = 23.000
+fT8.TextWrapped = true
+Excluded.Name = "Excluded"
+Excluded.Parent = OthersFrame
+Excluded.Active = true
+Excluded.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+Excluded.BackgroundTransparency = 1.000
+Excluded.BorderColor3 = Color3.fromRGB(27, 42, 53)
+Excluded.BorderSizePixel = 0
+Excluded.Position = UDim2.new(0.36256358, 0, 0.156363636, 0)
+Excluded.Size = UDim2.new(0, 142, 0, 160)
+Excluded.ScrollBarThickness = 1
+Excluded.CanvasSize = UDim2.new(0, 0, 3, 0)
+ELayout.Name = "ELayout"
+ELayout.Parent = Excluded
+ELayout.SortOrder = Enum.SortOrder.LayoutOrder
+ELayout.Padding = UDim.new(0, 4)
+Kill.Name = "Kill"
+Kill.Parent = OthersFrame
+Kill.Active = true
+Kill.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+Kill.BackgroundTransparency = 1.000
+Kill.BorderColor3 = Color3.fromRGB(27, 42, 53)
+Kill.BorderSizePixel = 0
+Kill.Position = UDim2.new(0.685441792, 0, 0.156363636, 0)
+Kill.Size = UDim2.new(0, 142, 0, 160)
+Kill.ScrollBarThickness = 0
+Kill.CanvasSize = UDim2.new(0, 0, 3, 0)
+KLayout.Name = "KLayout"
+KLayout.Parent = Kill
+KLayout.SortOrder = Enum.SortOrder.LayoutOrder
+KLayout.Padding = UDim.new(0, 4)
+fT9.Name = "fT9"
+fT9.Parent = OthersFrame
+fT9.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+fT9.BackgroundTransparency = 1.000
+fT9.Position = UDim2.new(0.66904217, 0, 0.0509090908, 0)
+fT9.Size = UDim2.new(0, 158, 0, 29)
+fT9.Font = Enum.Font.SourceSans
+fT9.Text = "Kill"
+fT9.TextColor3 = Color3.fromRGB(255, 255, 255)
+fT9.TextSize = 23.000
+fT9.TextWrapped = true
+join.Name = "join"
+join.Parent = CreditFrame
+join.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+join.BackgroundTransparency = 1.000
+join.Position = UDim2.new(0.249077499, 0, 0, 0)
+join.Size = UDim2.new(0, 264, 0, 66)
+join.Font = Enum.Font.SourceSans
+join.Text = "Join the Discord Server for New Updates!\nClick to Copy Invite!"
+join.TextColor3 = Color3.fromRGB(255, 255, 255)
+join.TextSize = 23.000
+ServerIcon.Name = "ServerIcon"
+ServerIcon.Parent = CreditFrame
+ServerIcon.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+ServerIcon.BackgroundTransparency = 1.000
+ServerIcon.Position = UDim2.new(0.356088549, 0, 0.276363641, 0)
+ServerIcon.Size = UDim2.new(0, 165, 0, 154)
+ServerIcon.Image = "rbxassetid://4832957972"
+ServerIcon.MouseButton1Click:Connect(function()
+	setclipboard("https://discord.gg/jPj7BHeU7s")
+end)
 aura.Name = "aura"
 aura.Parent = LocalFrame
 aura.BackgroundColor3 = Color3.fromRGB(33, 33, 33)
@@ -1003,6 +1159,25 @@ local AddTP = function(name, parent, cframe)
 		pcall(function()
 			plr.Character.HumanoidRootPart.CFrame = cframe
 		end)
+	end)
+end
+
+local AddButton = function(name, parent, func)
+	local tp = Instance.new("TextButton")
+	tp.Name = name
+	tp.Parent = parent
+	tp.BackgroundColor3 = Color3.fromRGB(45, 45, 45)
+	tp.BorderColor3 = Color3.fromRGB(48, 75, 94)
+	tp.BorderSizePixel = 0
+	tp.Size = UDim2.new(0, 180, 0, 23)
+	tp.Font = Enum.Font.SourceSans
+	tp.Text = name
+	tp.TextColor3 = Color3.fromRGB(200, 200, 200)
+	tp.TextScaled = true
+	tp.TextWrapped = true
+	tp.TextXAlignment = Enum.TextXAlignment.Left
+	tp.MouseButton1Click:Connect(function()
+		func(tp)
 	end)
 end
 
@@ -1107,10 +1282,6 @@ AddTP("Neighborhood", OutsidePrison, CFrame.new(Vector3.new(-126.451, 52.078, 24
 
 NotifyX("Loading Script...", 3)
 wait(3)
-if game.PlaceId ~= 155615604 then
-	NotifyX("Wrong Game", 3) wait(2)
-	return plr:Kick("Prison Life X")
-end
 PrisonLifeX.Enabled = true
 if nMSG ~= nil then
 	NotifyX(nMSG, 5)
@@ -1119,12 +1290,86 @@ else
 end
 spawn(function()
 	while wait(15) do
-		if RemoveUpdate then break end
 		if not game.CoreGui:FindFirstChild("UpdateNotification") then
 			loadstring(game:HttpGet('https://raw.githubusercontent.com/BloodyBurns/xL/main/PrisonLifeX.lua'))()
 		end
 	end
 end)
+for _, v in next, game:GetService("Players"):GetPlayers() do
+	if not table.find(exclusion, v.Name) then
+		AddButton(v.DisplayName, Unexcluded, function(a)
+			if table.find(exclusion, v.Name) then
+				for _, v2 in next, exclusion do
+					if v2 == v.Name then
+						a.Parent = Unexcluded
+						table.remove(exclusion, _)
+					end
+				end
+			else
+				table.insert(exclusion, v.Name)
+				a.Parent = Excluded
+			end
+		end)
+	else
+		AddButton(v.DisplayName, Excluded, function(a)
+			if table.find(exclusion, v.Name) then
+				for _, v2 in next, exclusion do
+					if v2 == v.Name then
+						a.Parent = Unexcluded
+						table.remove(exclusion, _)
+					end
+				end
+			else
+				table.insert(exclusion, v.Name)
+				a.Parent = Excluded
+			end
+		end)
+	end
+end
+
+game:GetService("Players").PlayerAdded:Connect(function(v)
+	if not table.find(exclusion, v.Name) then
+		AddButton(v.DisplayName, Unexcluded, function(a)
+			if table.find(exclusion, v.Name) then
+				for _, v2 in next, exclusion do
+					if v2 == v.Name then
+						a.Parent = Unexcluded
+						table.remove(exclusion, _)
+					end
+				end
+			else
+				table.insert(exclusion, v.Name)
+				a.Parent = Excluded
+			end
+		end)
+	else
+		AddButton(v.DisplayName, Excluded, function(a)
+			if table.find(exclusion, v.Name) then
+				for _, v2 in next, exclusion do
+					if v2 == v.Name then
+						a.Parent = Unexcluded
+						table.remove(exclusion, _)
+					end
+				end
+			else
+				table.insert(exclusion, v.Name)
+				a.Parent = Excluded
+			end
+		end)
+	end
+end)
+
+game:GetService("Players").PlayerRemoving:Connect(function(v)
+	if table.find(exclusion, v.Name) then
+		for _, v2 in next, exclusion do
+			if v2 == v.Name then
+				Excluded:FindFirstChild(v.DisplayName):Destroy()
+				table.remove(exclusion, _)
+			end
+		end
+	end
+end)
+
 for _, v in next, Tabs do
 	v.MouseButton1Click:Connect(function()
 		if Frames:FindFirstChild(v.Name.."Frame") then
@@ -1156,6 +1401,7 @@ end
 
 AutoRespawn = false
 AutoItems = false
+KnifeAura = false
 
 rejoin.MouseButton1Click:Connect(function()
 	game:GetService("TeleportService"):Teleport(game.PlaceId, plr)
@@ -1214,12 +1460,11 @@ truefalse.MouseButton1Click:Connect(function()
 		respawn()
 	end
 end)
-KnifeAura = false
 aTrueFalse.MouseButton1Click:Connect(function()
 	KnifeAura = not KnifeAura
 
 	if KnifeAura then
-		aTrueFalse:TweenPosition(UDim2.new(0.6, 0, -0.4, 0), "Out", "Quint", 0.2)
+		aTrueFalse:TweenPosition(UDim2.new(0.6, 0, -0.4, 0), "In", "Quint", 0.2)
 		aOnOff.ImageColor3 = Color3.new(0, 1, 0)
 		while KnifeAura and wait() do
 			if not plr.Backpack:FindFirstChild("Crude Knife") then
