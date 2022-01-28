@@ -1,4 +1,4 @@
-local Version = "v0.0.5"
+local Version = "v0.0.8"
 local nMSG = nil
 local pr, r = pcall(function() readfile("PrisonLifeXScriptVersion.txt") end)
 if not pr then
@@ -1107,6 +1107,10 @@ AddTP("Neighborhood", OutsidePrison, CFrame.new(Vector3.new(-126.451, 52.078, 24
 
 NotifyX("Loading Script...", 3)
 wait(3)
+if game.PlaceId ~+ 155615604 then
+	NotifyX("Wrong Game", 3) wait(2)
+	return plr:Kick("Prison Life X"
+end
 PrisonLifeX.Enabled = true
 if nMSG ~= nil then
 	NotifyX(nMSG, 5)
@@ -1213,9 +1217,10 @@ end)
 KnifeAura = false
 aTrueFalse.MouseButton1Click:Connect(function()
 	KnifeAura = not KnifeAura
-	aTrueFalse:TweenPosition(UDim2.new(0.6, 0, -0.4, 0), "Out", "Quint", 0.2)
-	aOnOff.ImageColor3 = Color3.new(0, 1, 0)
+
 	if KnifeAura then
+		aTrueFalse:TweenPosition(UDim2.new(0.6, 0, -0.4, 0), "Out", "Quint", 0.2)
+		aOnOff.ImageColor3 = Color3.new(0, 1, 0)
 		while KnifeAura and wait() do
 			if not plr.Backpack:FindFirstChild("Crude Knife") then
 				repeat wait()
