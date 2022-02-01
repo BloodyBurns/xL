@@ -127,4 +127,4 @@ TextButton.MouseButton1Click:Connect(function()
 	end
 	loadstring(game:HttpGet('https://raw.githubusercontent.com/BloodyBurns/xL/main/PrisonLifeX.lua'))()
 end)
-repeat wait() until CancelPLSXU ~= nil
+repeat wait(1) until CancelPLSXU ~= nil
