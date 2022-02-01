@@ -1,4 +1,4 @@
-local Version = "v0.1.3"
+local Version = "v0.1.4"
 local nMSG = nil
 local pr, r = pcall(function() readfile("PrisonLifeXScriptVersion.txt") end)
 if not pr then
